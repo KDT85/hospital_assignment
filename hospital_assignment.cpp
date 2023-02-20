@@ -109,39 +109,13 @@ public:
 	//print section, ive added a print section for each class
 	//not sure if that is right?
 public:
-	void print(vector<Patient>p)
+	void print()
 	{
-		//why is print here, does it just call the print function in the other classes?
-		ofstream printPatient("Patient.txt");
-		if (!printPatient) 
-		{
-			cout << "Error opening file" << endl;
-			//exit(1);
-		}
-		for (int i = 0; i < p.size(); i++)
-		{
-			printPatient << i << endl;
-		}
-		printPatient.close();
+	//This should print one person from the vector
 
 	}
-	void print(vector<Personnel> p)
-	// this only prints one person from the vector
-	// the hospital class has the save function
-	{
-		ofstream printPersonnel("Personnel.txt");
-		if (!printPersonnel)	
-		{
-			cout << "Error opening file" << endl;
-			//exit(1);
-		}
-		for (int i = 0; i < 10; i++)
-		{
-			printPersonnel << i << endl;
-		}
-		printPersonnel.close();
-	}
 
+	// i think luke did this
 	void set_id(const int id)
 	{
 		this->id = id;
@@ -151,6 +125,18 @@ public:
 	{
 		return this->id;
 	}
+
+	void set_name(const string name)
+	{
+		this->name = name;
+	}
+
+	string get_name()
+	{
+		return this->name;
+	}
+
+	
 };
 // use inheritance to make Patient class based on Person class
 
@@ -213,7 +199,7 @@ public:
 	}
 	void print()
 	{
-		Person::print(p);
+		//Person::print(p);
 
 
 	}
@@ -245,21 +231,49 @@ public:
 	// saves personnel list into file
 	void save(vector < Personnel> list)
 	{
-		ofstream personnelFile;
+		cout << "Saving Personnel List" << endl;
+		ofstream printPersonnel("Personnel.txt");
+		if (!printPersonnel)
+		{
+			cout << "Error opening file" << endl;
+			//exit(1);
+		}
+		for (int i = 0; i < 10; i++)
+		{
+			
+			printPersonnel  << i << endl;
+		}
+		printPersonnel.close();
 	}
 	// saves patient list into file
 	void save(vector < Patient> list)
 	{
 
+		cout << "Saving Patient List" << endl;
+		ofstream printPatient("Patient.txt");
+		if (!printPatient)
+		{
+			cout << "Error opening file" << endl;
+			//exit(1);
+		}
+		for (int i = 0; i < list.size(); i++)
+		{
+			int id = list.at(i).get_id();
+			string name = list.at(i).get_name();
+			printPatient << id << endl << name << endl;
+		}
+		printPatient.close();
+
 	}
 	// update Patient list
 	void update(vector <Patient> list)
 	{
+		cout << "Updating Patient List" << endl;
 	}
 	// update Personnel list
 	void update(vector <Personnel> list)
 	{
-
+		cout << "Updating Personnel List" << endl;
 	}
 	// display all data of patient list
 	void display(vector< Patient> patientVector)
@@ -294,9 +308,27 @@ public:
 
 	}
 	// read an id and delete its information from both memory and database of patients
-	void remove(vector <Patient> list)
+	int remove(vector <Patient> list)
 	{
-
+		int id;
+		cout << "Enter id of patient you wish to remove > ";
+		cin >> id;
+		int element_to_remove;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list[i].id == id)
+			{
+				element_to_remove = i;
+				cout << "you entered id " << id << endl;
+				cout << list[i].name << " will be removed" << endl;
+				cout << list[element_to_remove].name << " will be removed" << endl;
+			}
+		}
+		
+		//list.erase(element_to_remove);
+		patientVector.erase(patientVector.begin() + element_to_remove);
+		
+		return element_to_remove;
 	}
 	// read an id and delete its information from both memory and database of personnel
 
@@ -315,24 +347,36 @@ public:
 
 	}
 	// reads information of patients and personnel from file and stores them in memory
-	void initialize()
+	Patient initialize()
 	{
+		cout << "Initializing" << endl;
 		ifstream patientFile, personnelFile;
 		patientFile.open("Patient.txt");
 		personnelFile.open("Personnel.txt");
-
+		string line;
 		Patient p;
+
+/*		while (getline(patientFile, line))
+		{
+			p.id;
+			p.name;
+			sscanf(line.c_str(), "%[^],%d", &p.id, &p.name);
+			patientVector.push_back((p));
+			}*/
+		
 		while (!patientFile.eof())
 		{
+
 			if (!(patientFile >> p.id)) break;
 			if (!(patientFile >> p.name)) break;
-			if (!(patientFile >> p.gender))break;
-			if (!(patientFile >> p.dob))break;
-			if (!(patientFile >> p.address))break;
-			if (!(patientFile >> p.illness))break;
-			if (!(patientFile >> p.admission_date))break;
+		//	if (!(patientFile >> p.gender))break;
+			//if (!(patientFile >> p.dob))break;
+			//if (!(patientFile >> p.address))break;
+			//if (!(patientFile >> p.illness))break;
+			//if (!(patientFile >> p.admission_date))break;
 			patientVector.push_back(p);
 		}
+		return p;
 		patientFile.close();
 
 		Personnel p2;
@@ -352,23 +396,22 @@ public:
 	// read data for a personnel from keyboard
 	Personnel read(Personnel p)
 	{
-		cout << "Enter personnel id: ";
-		//how can we auto generate a unique id for each person?
+		cout << "Enter personnel id: ";//how can we auto generate a unique id for each person?		
 		cin >> p.id;
 		cout << "Enter personnel name: ";
 		cin >> p.name;
-		/*   	cout << "Enter personnel gender: ";
-				cin >> p.gender;
-				cout << "Enter personnel date of birth (DDMMYYYY): ";
-				cin >> p.dob;
-				cout << "Enter personnel address: ";
-				cin >> p.address;
-				cout << "Enter personnel post: ";
-				cin >> p.staff_post;
-				cout << p.staff_post << endl;
-				cout << "Enter personnel expertise: ";
-				cin >> p.staff_expertise;
-				cout << p.staff_expertise << endl;*/
+		cout << "Enter personnel gender: ";
+		cin >> p.gender;
+		cout << "Enter personnel date of birth (DDMMYYYY): ";
+		cin >> p.dob;
+		cout << "Enter personnel address: ";
+		cin >> p.address;
+		cout << "Enter personnel post: ";
+		cin >> p.staff_post;
+		cout << p.staff_post << endl;
+		cout << "Enter personnel expertise: ";
+		cin >> p.staff_expertise;
+		cout << p.staff_expertise << endl;
 		add(p);
 		return p;
 	}
@@ -553,6 +596,13 @@ public:
 	};
 	void shutdown(int x)
 	{
+		save(patientVector);
+		//test for loop to see whats in the vetor
+		for (int i = 0; i < patientVector.size(); i++)
+		{
+			cout << "patientVector" << i << " - ";
+			cout <<patientVector[i].name << endl;
+		}
 		exit(x);
 	}
 };
