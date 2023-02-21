@@ -268,8 +268,29 @@ public:
 	// update Patient list
 	void update(vector <Patient> list)
 	{
-		cout << "Updating Patient List" << endl;
+
+		//maybe this functuion should just call remove and then add a new patient?
+		//the alternative would be to iterate over every attribute and update manually.
+		int id;
+		cout << "Enter id of patient you wish to update > ";
+		cin >> id;
+		int element_to_update;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list[i].id == id)
+			{
+				element_to_update = i;
+				cout << list[element_to_update].name << " will be removed" << endl;
+			}
+		}
+
+
+		patientVector.erase(patientVector.begin() + element_to_update);
+		cout << list[element_to_update].name << " has been updated" << endl;
+
 	}
+	
+
 	// update Personnel list
 	void update(vector <Personnel> list)
 	{
@@ -308,7 +329,7 @@ public:
 
 	}
 	// read an id and delete its information from both memory and database of patients
-	int remove(vector <Patient> list)
+	void remove(vector <Patient> list)
 	{
 		int id;
 		cout << "Enter id of patient you wish to remove > ";
@@ -319,22 +340,21 @@ public:
 			if (list[i].id == id)
 			{
 				element_to_remove = i;
-				cout << "you entered id " << id << endl;
-				cout << list[i].name << " will be removed" << endl;
 				cout << list[element_to_remove].name << " will be removed" << endl;
 			}
 		}
 		
-		//list.erase(element_to_remove);
-		patientVector.erase(patientVector.begin() + element_to_remove);
 		
-		return element_to_remove;
+		patientVector.erase(patientVector.begin() + element_to_remove);
+		cout << list[element_to_remove].name << " has been removed" << endl;
+		
+	
 	}
 	// read an id and delete its information from both memory and database of personnel
 
 	void remove(vector <Personnel> list)
 	{
-
+	
 	}
 	// sets information of the Hopspital
 	void ourinfoset()
@@ -347,7 +367,7 @@ public:
 
 	}
 	// reads information of patients and personnel from file and stores them in memory
-	Patient initialize()
+	void initialize()
 	{
 		cout << "Initializing" << endl;
 		ifstream patientFile, personnelFile;
@@ -376,7 +396,7 @@ public:
 			//if (!(patientFile >> p.admission_date))break;
 			patientVector.push_back(p);
 		}
-		return p;
+		
 		patientFile.close();
 
 		Personnel p2;

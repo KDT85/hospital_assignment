@@ -1,6 +1,4 @@
 0
 person_name
-1
-ki
 2
 li
