@@ -158,24 +158,22 @@ public:
 	{
 		clog << "CPY CTR CALLED" << endl;
 
-		print(); // why is print being called here?
+		print(); 
 	}
+
+	//prtin out all informaion of a given patient
 	void print()
 
 	{
 		cout << "Patient ID: " << id << endl;
 		cout << "Patient Name: " << name << endl;
-		cout << "addmission date: " << admission_date << endl;
-		/*print(p); // does this print both the patient and  data?
-		//adding my own print function
+		cout << "Gender: " << gender << endl;
+		cout << "Date of birth: " << dob << endl;
+		cout << "Age: " << "todays date minus dob somwhow" << endl;
+		cout << "Address: " << address << endl;
+		cout << "Illness: " << illness << endl;
+		cout << "Addmission date: " << admission_date << endl;
 
-		ofstream patientPrint("Patient.txt");
-		for (int i = 0; i < 10; i++)
-		{
-			patientPrint << i << endl;
-		}
-		patientPrint.close();
-		*/
 	}
 };
 // use inheritance to make Personel class based on Person class
@@ -416,11 +414,11 @@ public:
 
 			if (!(patientFile >> p.id)) break;
 			if (!(patientFile >> p.name)) break;
-		//	if (!(patientFile >> p.gender))break;
-			//if (!(patientFile >> p.dob))break;
-			//if (!(patientFile >> p.address))break;
-			//if (!(patientFile >> p.illness))break;
-			//if (!(patientFile >> p.admission_date))break;
+			if (!(patientFile >> p.gender))break;
+			if (!(patientFile >> p.dob))break;
+			if (!(patientFile >> p.address))break;
+			if (!(patientFile >> p.illness))break;
+			if (!(patientFile >> p.admission_date))break;
 			patientVector.push_back(p);
 		}
 		
@@ -468,10 +466,11 @@ public:
 
 	Patient read(Patient p)
 	{
+		clog << "patient read called" << endl;
 		// im going to increment the id by 1 each time a new patient is added
 		//then i need to use the name to search for the id in the vector
 		//cout << "Enter patient id: ";
-		int id;
+		int id = 0;
 		for (int i = 0; i < patientVector.size(); i++)
 		{
 			cout << "ID " << patientVector[i].id << endl;
@@ -490,21 +489,21 @@ public:
 		cout << "Enter patient name: ";
 		cin >> p.name;
 		cout << p.name << endl;
-		/*		cout << "Enter patient gender: ";
-				cin >> p.gender;
-				cout << p.gender << endl;
-				cout << "Enter patient date of birth (DDMMYYYY): ";
-				cin >> p.dob;
-				cout << p.dob << endl;
-				cout << "Enter patient address: ";
-				cin >> p.address;
-				cout << p.address << endl;
-				cout << "Enter patient illness: ";
-				cin >> p.illness;
-				cout << p.illness << endl;
-				cout << "Enter patient admission date (DDMMYYYY): ";
-				cin >> p.admission_date;
-				cout << p.admission_date << endl;*/
+		cout << "Enter patient gender (M/F): ";
+		cin >> p.gender;
+		cout << p.gender << endl;
+		cout << "Enter patient date of birth (DDMMYYYY): ";
+		cin >> p.dob;
+		cout << p.dob << endl;
+		cout << "Enter patient address: ";
+		cin >> p.address;
+		cout << p.address << endl;
+		cout << "Enter patient illness: ";
+		cin >> p.illness;
+		cout << p.illness << endl;
+		cout << "Enter patient admission date (DDMMYYYY): ";
+		cin >> p.admission_date;
+		cout << p.admission_date << endl;
 
 		add(p);
 		return p;
@@ -656,7 +655,8 @@ public:
 	};
 	void shutdown(int x)
 	{
-		save(patientVector);
+		save(patientVector); // this should be called else wherrer in the program too
+
 		//test for loop to see whats in the vetor
 		for (int i = 0; i < patientVector.size(); i++)
 		{
