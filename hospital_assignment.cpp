@@ -356,6 +356,33 @@ public:
 	{
 	
 	}
+
+	// trying to implement a search function that will search for a patient by name and 
+	//return the patient id 
+
+	void search(vector <Patient> list)
+	{
+		string name;
+		cout << "Enter name of patient you wish to search for > ";
+		cin >> name;
+		int element_to_search;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list[i].name == name)
+			{
+				element_to_search = i;
+				cout << list[element_to_search].name << " has been found" << endl;
+				cout << "id = " << list[element_to_search].id << endl;
+				cout << "name = " << list[element_to_search].name << endl;
+				
+			}
+			else
+			{
+				cout << "Patient not found" << endl;
+			}
+		}
+	}
+
 	// sets information of the Hopspital
 	void ourinfoset()
 	{
