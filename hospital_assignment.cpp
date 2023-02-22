@@ -441,12 +441,25 @@ public:
 
 	Patient read(Patient p)
 	{
-		cout << "Enter patient id: ";
-		//cin >> p.id;
-		int nId;
-		cin >> nId;
-		p.set_id(nId);
-		cout << p.id << endl;
+		// im going to increment the id by 1 each time a new patient is added
+		//then i need to use the name to search for the id in the vector
+		//cout << "Enter patient id: ";
+		int id;
+		for (int i = 0; i < patientVector.size(); i++)
+		{
+			cout << "ID " << patientVector[i].id << endl;
+			cout << i << endl;
+			if (patientVector[i].id != i)
+			{
+				 id = i;
+			} 
+			else
+			{
+				id = i + 1;
+			}
+		}
+		p.id = id;
+		cout << "ID " << p.id << endl;
 		cout << "Enter patient name: ";
 		cin >> p.name;
 		cout << p.name << endl;

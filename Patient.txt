@@ -1,4 +1,0 @@
-0
-person_name
-2
-li
