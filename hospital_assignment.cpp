@@ -313,8 +313,7 @@ public:
 	void update(vector <Patient> list)
 	{
 
-		//maybe this functuion should just call remove and then add a new patient?
-		//the alternative would be to iterate over every attribute and update manually.
+		// find the patient to update
 		int id;
 		cout << "Enter id of patient you wish to update > ";
 		cin >> id;
@@ -328,27 +327,25 @@ public:
 			}
 		}
 
+		//i would like to ask which attribute to update and then update only that attribute
 		cout << "Enter patient name: ";
-		string name = "";
-		cin >> name;
-		patientVector[element_to_update].name = name;
-		cout << list[element_to_update].name << endl;
-
+		cin >> patientVector[element_to_update].name;
+		cout << patientVector[element_to_update].name << endl;
 		cout << "Enter patient gender (M/F): ";
 		cin >> patientVector[element_to_update].gender;
-		cout << list[element_to_update].gender << endl;
+		cout << patientVector[element_to_update].gender << endl;
 		cout << "Enter patient date of birth (DDMMYYYY): ";
-		cin >> list[element_to_update].dob;
-		cout << list[element_to_update].dob << endl;
+		cin >> patientVector[element_to_update].dob;
+		cout << patientVector[element_to_update].dob << endl;
 		cout << "Enter patient address: ";
-		cin >> list[element_to_update].address;
-		cout << list[element_to_update].address << endl;
+		cin >> patientVector[element_to_update].address;
+		cout << patientVector[element_to_update].address << endl;
 		cout << "Enter patient illness: ";
-		cin >> list[element_to_update].illness;
-		cout << list[element_to_update].illness << endl;
+		cin >> patientVector[element_to_update].illness;
+		cout << patientVector[element_to_update].illness << endl;
 		cout << "Enter patient admission date (DDMMYYYY): ";
-		cin >> list[element_to_update].admission_date;
-		cout << list[element_to_update].admission_date << endl;
+		cin >> patientVector[element_to_update].admission_date;
+		cout << patientVector[element_to_update].admission_date << endl;
 
 
 		//patientVector.erase(patientVector.begin() + element_to_update);
