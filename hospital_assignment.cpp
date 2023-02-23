@@ -136,6 +136,38 @@ public:
 		return this->name;
 	}
 
+	void set_gender(const char gender)
+	{
+		this->gender = gender;
+	}
+
+	char get_gender()
+	{
+		return this->gender;
+	}
+
+	void set_dob(const int dob)
+	{
+		this->dob = dob;
+	}
+
+	int get_dob()
+	{
+		return this->dob;
+	}
+
+	void set_address(const string address)
+	{
+		this->address = address;
+	}
+
+	string get_address()
+	{
+		return this->address;
+	}
+
+
+
 	
 };
 // use inheritance to make Patient class based on Person class
@@ -265,7 +297,14 @@ public:
 		{
 			int id = list.at(i).get_id();
 			string name = list.at(i).get_name();
-			printPatient << id << endl << name << endl;
+			char gender = list.at(i).gender;
+			int dob = list.at(i).dob;
+			string address = list.at(i).address;
+			string illness = list.at(i).illness;
+			string admission_date = list.at(i).admission_date;
+
+			// there must be a way to this in a for loop
+			printPatient << id << endl << name  << endl << gender << endl << dob << endl  << address << endl << illness << endl << admission_date << endl;
 		}
 		printPatient.close();
 
@@ -279,19 +318,41 @@ public:
 		int id;
 		cout << "Enter id of patient you wish to update > ";
 		cin >> id;
-		int element_to_update;
+		int element_to_update = 0;
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (list[i].id == id)
 			{
 				element_to_update = i;
-				cout << list[element_to_update].name << " will be removed" << endl;
+				cout << list[element_to_update].name << " will be updated" << endl;
 			}
 		}
 
+		cout << "Enter patient name: ";
+		string name = "";
+		cin >> name;
+		patientVector[element_to_update].name = name;
+		cout << list[element_to_update].name << endl;
 
-		patientVector.erase(patientVector.begin() + element_to_update);
-		cout << list[element_to_update].name << " has been updated" << endl;
+		cout << "Enter patient gender (M/F): ";
+		cin >> patientVector[element_to_update].gender;
+		cout << list[element_to_update].gender << endl;
+		cout << "Enter patient date of birth (DDMMYYYY): ";
+		cin >> list[element_to_update].dob;
+		cout << list[element_to_update].dob << endl;
+		cout << "Enter patient address: ";
+		cin >> list[element_to_update].address;
+		cout << list[element_to_update].address << endl;
+		cout << "Enter patient illness: ";
+		cin >> list[element_to_update].illness;
+		cout << list[element_to_update].illness << endl;
+		cout << "Enter patient admission date (DDMMYYYY): ";
+		cin >> list[element_to_update].admission_date;
+		cout << list[element_to_update].admission_date << endl;
+
+
+		//patientVector.erase(patientVector.begin() + element_to_update);
+		cout << patientVector[element_to_update].name << " has been updated" << endl;
 
 	}
 	
@@ -339,7 +400,7 @@ public:
 		int id;
 		cout << "Enter id of patient you wish to remove > ";
 		cin >> id;
-		int element_to_remove;
+		int element_to_remove = 0;
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (list[i].id == id)
@@ -380,6 +441,7 @@ public:
 				cout << "id = " << list[element_to_search].id << endl;
 				cout << "name = " << list[element_to_search].name << endl;
 				
+				break;
 			}
 			else
 			{
@@ -587,7 +649,7 @@ public:
 	void patientManagemnt()
 	{
 		int Selection;
-		string arr[] = { "Add", "Update", "Delete", "Display", "Back to Main Menu" };
+		string arr[] = { "Add", "Search", "Update", "Delete", "Display", "Back to Main Menu" };
 		int size = sizeof(arr) / sizeof(arr[0]);
 		Menu pMenu(arr, size);
 
@@ -605,16 +667,20 @@ public:
 				break;
 
 			case 2:
+				search(patientVector);
+				break;
+
+			case 3:
 				update(patientVector);
 				break;
-			case 3:
+			case 4:
 				remove(patientVector);
 				break;
-			case 4:
+			case 5:
 				display(patientVector);
 				_getch();
 				break;
-			case 5: return;
+			case 6: return;
 
 			default:
 				cout << "Invalid input!\nPlease select correct option. \n";
