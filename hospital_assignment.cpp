@@ -147,18 +147,25 @@ public:
 	string admission_date;
 	Patient() :Person()
 	{
+		illness = "some illness";
+		admission_date = "some date";
 	}
 	Patient(int id, string name, char gender, int dob, string address,
 		string illness, string	admission_date)
 		: Person(id, name, gender, dob, address)
 	{
+		this->illness = illness;
+		this->admission_date = admission_date;
 
 	}
 	Patient(const Patient& p) : Person(p.id, p.name, p.gender, p.dob, p.address)
 	{
 		clog << "CPY CTR CALLED" << endl;
+		this->illness = p.illness;
+		this->admission_date = p.admission_date;
 
-		print(); 
+		print();
+
 	}
 
 	//prtin out all informaion of a given patient
@@ -171,8 +178,8 @@ public:
 		cout << "Date of birth: " << dob << endl;
 		cout << "Age: " << "todays date minus dob somwhow" << endl;
 		cout << "Address: " << address << endl;
-		cout << "Illness: " << illness << endl;
-		cout << "Addmission date: " << admission_date << endl;
+		cout << "Illness this one?: " << illness << endl;
+		cout << "Addmission date: " << this->admission_date << endl;
 
 	}
 };
