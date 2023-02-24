@@ -454,11 +454,56 @@ public:
 	// sets information of the Hopspital
 	void ourinfoset()
 	{
+		ofstream infoFile;
+		infoFile.open("HospitalInfo.txt");
+		if (!infoFile)
+		{
+			cout << "Error opening file" << endl;
+			//exit(1);
+		}
+		
+		string name, address, manager;
+		cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because if was skipping the fist input
+		cout << "Enter hospital name > ";
+		//cin >> name;
+		getline(cin, name);
+		cout << "Enter hospital address > ";
+		//cin >> address;
+		getline(cin, address);
+		cout << "Enter hospital manager > ";
+		//cin >> manager;
+		getline(cin, manager);
+
+		infoFile << name << endl << address << endl << manager << endl;
+		cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
+
+		infoFile.close();
 
 	}
 	// displays information of the hospital
 	void displayInfo()
 	{
+		string name, address, manager;
+		ifstream infoFile;
+		infoFile.open("HospitalInfo.txt");
+		string line;
+		while (!infoFile.eof())
+		{
+			//cin.ignore(1, '\n');
+			//getline(infoFile, line);
+			//cout << line << endl;
+			if(!(infoFile >> name)) break;
+			if(!(infoFile >> address)) break;
+			if(!(infoFile >> manager)) break;
+		}
+
+		infoFile.close();
+
+		cout << "Hospital name: " << name << endl;
+		cout << "Hospital address: " << address << endl;
+		cout << "Hospital manager: " << manager << endl;
+
+
 
 	}
 	// reads information of patients and personnel from file and stores them in memory
@@ -471,14 +516,6 @@ public:
 		string line;
 		Patient p;
 
-/*		while (getline(patientFile, line))
-		{
-			p.id;
-			p.name;
-			sscanf(line.c_str(), "%[^],%d", &p.id, &p.name);
-			patientVector.push_back((p));
-			}*/
-		
 		while (!patientFile.eof())
 		{
 
