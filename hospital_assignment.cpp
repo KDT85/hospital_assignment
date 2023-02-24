@@ -487,6 +487,7 @@ public:
 		ifstream infoFile;
 		infoFile.open("HospitalInfo.txt");
 		string line;
+
 		while (!infoFile.eof())
 		{
 			//getline(infoFile, line);
@@ -495,18 +496,20 @@ public:
 			//if(!(infoFile >> address)) break;
 			//if(!(infoFile >> manager)) break;
 			if(!(getline(infoFile, name, '\n'))) break;
-			cout << name << endl; 
+			cout << "Hospital name: " << name << endl;
 			if(!(getline(infoFile, address, '\n'))) break;
+			cout << "Hospital address: " << address << endl;
 			if(!(getline(infoFile, manager, '\n'))) break;
+			cout << "Hospital manager: " << manager << endl;
 
 		}
 
 		infoFile.close();
 
-		cin.ignore(1, '\n');
-		cout << "Hospital name: " << name << endl; //why is this empty?
-		cout << "Hospital address: " << address << endl;
-		cout << "Hospital manager: " << manager << endl;
+		//cin.ignore(1, '\n');
+		//cout << "Hospital name: " << name << endl; //why is this empty?
+		//cout << "Hospital address: " << address << endl;
+		//cout << "Hospital manager: " << manager << endl;
 
 
 
