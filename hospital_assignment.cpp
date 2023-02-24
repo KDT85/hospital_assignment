@@ -454,30 +454,69 @@ public:
 	// sets information of the Hopspital
 	void ourinfoset()
 	{
-		ofstream infoFile;
-		infoFile.open("HospitalInfo.txt");
-		if (!infoFile)
+		//password stuff goes here
+		string password = "1234";
+		string input = "";
+		cout << "Enter password > ";
+		cin >> input;
+		if (password == input)
 		{
-			cout << "Error opening file" << endl;
-			//exit(1);
+			ofstream infoFile;
+			infoFile.open("HospitalInfo.txt");
+			if (!infoFile)
+			{
+				cout << "Error opening file" << endl;
+				//exit(1);
+			}
+
+			string name, address, manager;
+			cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because if was skipping the fist input
+			cout << "Enter hospital name > ";
+			//cin >> name;
+			getline(cin, name);
+			cout << "Enter hospital address > ";
+			//cin >> address;
+			getline(cin, address);
+			cout << "Enter hospital manager > ";
+			//cin >> manager;
+			getline(cin, manager);
+
+			infoFile << name << endl << address << endl << manager << endl;
+			cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
+
+			infoFile.close();
+
 		}
-		
-		string name, address, manager;
-		cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because if was skipping the fist input
-		cout << "Enter hospital name > ";
-		//cin >> name;
-		getline(cin, name);
-		cout << "Enter hospital address > ";
-		//cin >> address;
-		getline(cin, address);
-		cout << "Enter hospital manager > ";
-		//cin >> manager;
-		getline(cin, manager);
+		else
+		{
+			cout << "Incorrect password" << endl;
+		}
 
-		infoFile << name << endl << address << endl << manager << endl;
-		cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
 
-		infoFile.close();
+		//ofstream infoFile;
+		//infoFile.open("HospitalInfo.txt");
+		//if (!infoFile)
+		//{
+		//	cout << "Error opening file" << endl;
+		//	//exit(1);
+		//}
+		//
+		//string name, address, manager;
+		//cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because if was skipping the fist input
+		//cout << "Enter hospital name > ";
+		////cin >> name;
+		//getline(cin, name);
+		//cout << "Enter hospital address > ";
+		////cin >> address;
+		//getline(cin, address);
+		//cout << "Enter hospital manager > ";
+		////cin >> manager;
+		//getline(cin, manager);
+
+		//infoFile << name << endl << address << endl << manager << endl;
+		//cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
+
+		//infoFile.close();
 
 	}
 	// displays information of the hospital
