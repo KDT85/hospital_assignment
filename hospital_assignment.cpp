@@ -212,6 +212,7 @@ public:
 		cout << "Address: " << address << endl;
 		cout << "Illness this one?: " << illness << endl;
 		cout << "Addmission date: " << this->admission_date << endl;
+		cout << "------------------------------" << endl;
 
 	}
 };
@@ -351,6 +352,8 @@ public:
 		//patientVector.erase(patientVector.begin() + element_to_update);
 		cout << patientVector[element_to_update].name << " has been updated" << endl;
 
+		save(patientVector);
+
 	}
 	
 
@@ -410,6 +413,7 @@ public:
 		
 		patientVector.erase(patientVector.begin() + element_to_remove);
 		cout << list[element_to_remove].name << " has been removed" << endl;
+		save(patientVector);
 		
 	
 	}
@@ -543,13 +547,13 @@ public:
 			cout << i << endl;
 			if (patientVector[i].id != i)
 			{
-				cout << "if id = i" << endl;
+				//cout << "if id = i" << endl;
 				id = i;
 				break;
 			} 
 			else
 			{
-				cout << "else id = i + 1" << endl;
+				//cout << "else id = i + 1" << endl;
 				id = i + 1;
 			}
 		}
