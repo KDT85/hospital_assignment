@@ -489,16 +489,21 @@ public:
 		string line;
 		while (!infoFile.eof())
 		{
-			//cin.ignore(1, '\n');
 			//getline(infoFile, line);
 			//cout << line << endl;
-			if(!(infoFile >> name)) break;
-			if(!(infoFile >> address)) break;
-			if(!(infoFile >> manager)) break;
+			//if(!(infoFile >> name)) break;
+			//if(!(infoFile >> address)) break;
+			//if(!(infoFile >> manager)) break;
+			if(!(getline(infoFile, name, '\n'))) break;
+			cout << name << endl; 
+			if(!(getline(infoFile, address, '\n'))) break;
+			if(!(getline(infoFile, manager, '\n'))) break;
+
 		}
 
 		infoFile.close();
 
+		cin.ignore(1, '\n');
 		cout << "Hospital name: " << name << endl;
 		cout << "Hospital address: " << address << endl;
 		cout << "Hospital manager: " << manager << endl;
