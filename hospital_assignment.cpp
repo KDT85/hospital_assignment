@@ -1,5 +1,5 @@
 // hospital_assignment.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// test 
 
 //This program is hospital management system using object-oriented programming.
 #include<iostream>
