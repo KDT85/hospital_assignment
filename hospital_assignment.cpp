@@ -136,6 +136,38 @@ public:
 		return this->name;
 	}
 
+	void set_gender(const char gender)
+	{
+		this->gender = gender;
+	}
+
+	char get_gender()
+	{
+		return this->gender;
+	}
+
+	void set_dob(const int dob)
+	{
+		this->dob = dob;
+	}
+
+	int get_dob()
+	{
+		return this->dob;
+	}
+
+	void set_address(const string address)
+	{
+		this->address = address;
+	}
+
+	string get_address()
+	{
+		return this->address;
+	}
+
+
+
 	
 };
 // use inheritance to make Patient class based on Person class
@@ -147,35 +179,40 @@ public:
 	string admission_date;
 	Patient() :Person()
 	{
+		illness = "some illness";
+		admission_date = "some date";
 	}
 	Patient(int id, string name, char gender, int dob, string address,
 		string illness, string	admission_date)
 		: Person(id, name, gender, dob, address)
 	{
+		this->illness = illness;
+		this->admission_date = admission_date;
 
 	}
 	Patient(const Patient& p) : Person(p.id, p.name, p.gender, p.dob, p.address)
 	{
 		clog << "CPY CTR CALLED" << endl;
+		this->illness = p.illness;
+		this->admission_date = p.admission_date;
 
-		print(); // why is print being called here?
+		print();
+
 	}
+
+	//prtin out all informaion of a given patient
 	void print()
 
 	{
 		cout << "Patient ID: " << id << endl;
 		cout << "Patient Name: " << name << endl;
-		cout << "addmission date: " << admission_date << endl;
-		/*print(p); // does this print both the patient and  data?
-		//adding my own print function
+		cout << "Gender: " << gender << endl;
+		cout << "Date of birth: " << dob << endl;
+		cout << "Age: " << "todays date minus dob somwhow" << endl;
+		cout << "Address: " << address << endl;
+		cout << "Illness this one?: " << illness << endl;
+		cout << "Addmission date: " << this->admission_date << endl;
 
-		ofstream patientPrint("Patient.txt");
-		for (int i = 0; i < 10; i++)
-		{
-			patientPrint << i << endl;
-		}
-		patientPrint.close();
-		*/
 	}
 };
 // use inheritance to make Personel class based on Person class
@@ -260,7 +297,14 @@ public:
 		{
 			int id = list.at(i).get_id();
 			string name = list.at(i).get_name();
-			printPatient << id << endl << name << endl;
+			char gender = list.at(i).gender;
+			int dob = list.at(i).dob;
+			string address = list.at(i).address;
+			string illness = list.at(i).illness;
+			string admission_date = list.at(i).admission_date;
+
+			// there must be a way to this in a for loop
+			printPatient << id << endl << name  << endl << gender << endl << dob << endl  << address << endl << illness << endl << admission_date << endl;
 		}
 		printPatient.close();
 
@@ -269,24 +313,43 @@ public:
 	void update(vector <Patient> list)
 	{
 
-		//maybe this functuion should just call remove and then add a new patient?
-		//the alternative would be to iterate over every attribute and update manually.
+		// find the patient to update
 		int id;
 		cout << "Enter id of patient you wish to update > ";
 		cin >> id;
-		int element_to_update;
+		int element_to_update = 0;
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (list[i].id == id)
 			{
 				element_to_update = i;
-				cout << list[element_to_update].name << " will be removed" << endl;
+				cout << list[element_to_update].name << " will be updated" << endl;
 			}
 		}
 
+		//i would like to ask which attribute to update and then update only that attribute
+		cout << "Enter patient name: ";
+		cin >> patientVector[element_to_update].name;
+		cout << patientVector[element_to_update].name << endl;
+		cout << "Enter patient gender (M/F): ";
+		cin >> patientVector[element_to_update].gender;
+		cout << patientVector[element_to_update].gender << endl;
+		cout << "Enter patient date of birth (DDMMYYYY): ";
+		cin >> patientVector[element_to_update].dob;
+		cout << patientVector[element_to_update].dob << endl;
+		cout << "Enter patient address: ";
+		cin >> patientVector[element_to_update].address;
+		cout << patientVector[element_to_update].address << endl;
+		cout << "Enter patient illness: ";
+		cin >> patientVector[element_to_update].illness;
+		cout << patientVector[element_to_update].illness << endl;
+		cout << "Enter patient admission date (DDMMYYYY): ";
+		cin >> patientVector[element_to_update].admission_date;
+		cout << patientVector[element_to_update].admission_date << endl;
 
-		patientVector.erase(patientVector.begin() + element_to_update);
-		cout << list[element_to_update].name << " has been updated" << endl;
+
+		//patientVector.erase(patientVector.begin() + element_to_update);
+		cout << patientVector[element_to_update].name << " has been updated" << endl;
 
 	}
 	
@@ -334,7 +397,7 @@ public:
 		int id;
 		cout << "Enter id of patient you wish to remove > ";
 		cin >> id;
-		int element_to_remove;
+		int element_to_remove = 0;
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (list[i].id == id)
@@ -356,6 +419,34 @@ public:
 	{
 	
 	}
+
+	// trying to implement a search function that will search for a patient by name and 
+	//return the patient id 
+
+	void search(vector <Patient> list)
+	{
+		string name;
+		cout << "Enter name of patient you wish to search for > ";
+		cin >> name;
+		int element_to_search;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list[i].name == name)
+			{
+				element_to_search = i;
+				cout << list[element_to_search].name << " has been found" << endl;
+				cout << "id = " << list[element_to_search].id << endl;
+				cout << "name = " << list[element_to_search].name << endl;
+				
+				break;
+			}
+			else
+			{
+				cout << "Patient not found" << endl;
+			}
+		}
+	}
+
 	// sets information of the Hopspital
 	void ourinfoset()
 	{
@@ -389,11 +480,11 @@ public:
 
 			if (!(patientFile >> p.id)) break;
 			if (!(patientFile >> p.name)) break;
-		//	if (!(patientFile >> p.gender))break;
-			//if (!(patientFile >> p.dob))break;
-			//if (!(patientFile >> p.address))break;
-			//if (!(patientFile >> p.illness))break;
-			//if (!(patientFile >> p.admission_date))break;
+			if (!(patientFile >> p.gender))break;
+			if (!(patientFile >> p.dob))break;
+			if (!(patientFile >> p.address))break;
+			if (!(patientFile >> p.illness))break;
+			if (!(patientFile >> p.admission_date))break;
 			patientVector.push_back(p);
 		}
 		
@@ -441,30 +532,47 @@ public:
 
 	Patient read(Patient p)
 	{
-		cout << "Enter patient id: ";
-		//cin >> p.id;
-		int nId;
-		cin >> nId;
-		p.set_id(nId);
-		cout << p.id << endl;
+		clog << "patient read called" << endl;
+		// im going to increment the id by 1 each time a new patient is added
+		//then i need to use the name to search for the id in the vector
+		//cout << "Enter patient id: ";
+		int id = 0;
+		for (int i = 0; i < patientVector.size(); i++)
+		{
+			cout << "ID " << patientVector[i].id << endl;
+			cout << i << endl;
+			if (patientVector[i].id != i)
+			{
+				cout << "if id = i" << endl;
+				id = i;
+				break;
+			} 
+			else
+			{
+				cout << "else id = i + 1" << endl;
+				id = i + 1;
+			}
+		}
+		p.id = id;
+		cout << "ID " << p.id << endl;
 		cout << "Enter patient name: ";
 		cin >> p.name;
 		cout << p.name << endl;
-		/*		cout << "Enter patient gender: ";
-				cin >> p.gender;
-				cout << p.gender << endl;
-				cout << "Enter patient date of birth (DDMMYYYY): ";
-				cin >> p.dob;
-				cout << p.dob << endl;
-				cout << "Enter patient address: ";
-				cin >> p.address;
-				cout << p.address << endl;
-				cout << "Enter patient illness: ";
-				cin >> p.illness;
-				cout << p.illness << endl;
-				cout << "Enter patient admission date (DDMMYYYY): ";
-				cin >> p.admission_date;
-				cout << p.admission_date << endl;*/
+		cout << "Enter patient gender (M/F): ";
+		cin >> p.gender;
+		cout << p.gender << endl;
+		cout << "Enter patient date of birth (DDMMYYYY): ";
+		cin >> p.dob;
+		cout << p.dob << endl;
+		cout << "Enter patient address: ";
+		cin >> p.address;
+		cout << p.address << endl;
+		cout << "Enter patient illness: ";
+		cin >> p.illness;
+		cout << p.illness << endl;
+		cout << "Enter patient admission date (DDMMYYYY): ";
+		cin >> p.admission_date;
+		cout << p.admission_date << endl;
 
 		add(p);
 		return p;
@@ -541,7 +649,7 @@ public:
 	void patientManagemnt()
 	{
 		int Selection;
-		string arr[] = { "Add", "Update", "Delete", "Display", "Back to Main Menu" };
+		string arr[] = { "Add", "Search", "Update", "Delete", "Display", "Back to Main Menu" };
 		int size = sizeof(arr) / sizeof(arr[0]);
 		Menu pMenu(arr, size);
 
@@ -559,16 +667,20 @@ public:
 				break;
 
 			case 2:
+				search(patientVector);
+				break;
+
+			case 3:
 				update(patientVector);
 				break;
-			case 3:
+			case 4:
 				remove(patientVector);
 				break;
-			case 4:
+			case 5:
 				display(patientVector);
 				_getch();
 				break;
-			case 5: return;
+			case 6: return;
 
 			default:
 				cout << "Invalid input!\nPlease select correct option. \n";
@@ -616,7 +728,8 @@ public:
 	};
 	void shutdown(int x)
 	{
-		save(patientVector);
+		save(patientVector); // this should be called else wherrer in the program too
+
 		//test for loop to see whats in the vetor
 		for (int i = 0; i < patientVector.size(); i++)
 		{
