@@ -504,7 +504,7 @@ public:
 		infoFile.close();
 
 		cin.ignore(1, '\n');
-		cout << "Hospital name: " << name << endl;
+		cout << "Hospital name: " << name << endl; //why is this empty?
 		cout << "Hospital address: " << address << endl;
 		cout << "Hospital manager: " << manager << endl;
 
