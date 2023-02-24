@@ -543,10 +543,13 @@ public:
 			cout << i << endl;
 			if (patientVector[i].id != i)
 			{
-				 id = i;
+				cout << "if id = i" << endl;
+				id = i;
+				break;
 			} 
 			else
 			{
+				cout << "else id = i + 1" << endl;
 				id = i + 1;
 			}
 		}
