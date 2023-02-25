@@ -451,14 +451,71 @@ public:
 		}
 	}
 
+	void set_password()
+	{
+		string password;
+		cout << "Enter a password: ";
+		cin >> password;
+		for (int i = 0; i < password.length(); i++)
+		{
+			password[i] = password[i] + 100;
+		}
+		cout << password << endl;
+		ofstream myoutputfile;
+		myoutputfile.open("test.txt");
+		myoutputfile << password;
+		myoutputfile.close();
+	}
+
+	string get_password()
+	{
+		string line;
+		ifstream myfile("test.txt");
+		if (myfile.is_open())
+		{
+			while (getline(myfile, line))
+			{
+				cout << line << '\n';
+				for (int i = 0; i < line.length(); i++)
+				{
+					line[i] = line[i] - 100;
+					cout << line[i];
+				}
+			}
+
+			cout << "line: " << line << endl;
+			myfile.close();
+		}
+
+		else cout << "Unable to open file";
+
+		cout << "Enter password: ";
+		string passwordguess;
+		cin >> passwordguess;
+		if (passwordguess == line)
+		{
+			cout << "Correct password" << endl;
+			return line;
+		}
+		else
+		{
+			cout << "Incorrect password" << endl;
+		}
+	}
+
 	// sets information of the Hopspital
 	void ourinfoset()
 	{
 		//password stuff goes here
-		string password = "1234";
-		string input = "";
+
+		//this sets a new password everry time i need a way to only do it once maybe
+		set_password();
+
+		string input = " ";
 		cout << "Enter password > ";
 		cin >> input;
+		string password = get_password();
+
 		if (password == input)
 		{
 			ofstream infoFile;
