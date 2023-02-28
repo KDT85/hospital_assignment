@@ -454,17 +454,28 @@ public:
 	void set_password()
 	{
 		string password;
-		cout << "Enter a password: ";
+		string passwordverify;
+		cout << "Create a password: ";
 		cin >> password;
-		for (int i = 0; i < password.length(); i++)
+		cout << "Verify password:";
+		cin >> passwordverify;
+		if (password == passwordverify)
 		{
-			password[i] = password[i] + 100;
+			for (int i = 0; i < password.length(); i++)
+			{
+				password[i] = password[i] + 100;
+			}
+			cout << password << endl;
+			ofstream myoutputfile;
+			myoutputfile.open("admin.txt");
+			myoutputfile << password;
+			myoutputfile.close();
 		}
-		cout << password << endl;
-		ofstream myoutputfile;
-		myoutputfile.open("admin.txt");
-		myoutputfile << password;
-		myoutputfile.close();
+		else
+		{
+			cout << "passwords do not match" << endl;
+			set_password();
+		}
 	}
 
 	string get_password()
@@ -479,15 +490,18 @@ public:
 				for (int i = 0; i < line.length(); i++)
 				{
 					line[i] = line[i] - 100;
-					cout << line[i];
+					//cout << line[i];
 				}
 			}
 
-			cout << "line: " << line << endl;
+			//cout << "line: " << line << endl;
 			myfile.close();
 		}
 
-		else cout << "Unable to open file";
+		else
+		{
+			cout << "Unable to open file";
+		}
 
 		cout << "Enter password: ";
 		string passwordguess;
@@ -507,12 +521,13 @@ public:
 	void ourinfoset()
 	{
 		//check if password file exists, if not force user to create one 
-		ofstream admin;
+
+		ifstream admin;
 		admin.open("admin.txt");
 		if (!admin)
 		{
 			cout << "You need to create a password" << endl;
-			cout << "Default password is 'admin'" << endl;
+			//cout << "Default password is 'admin'" << endl;
 			set_password();
 		}
 		admin.close();
