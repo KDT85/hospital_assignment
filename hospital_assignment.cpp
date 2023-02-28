@@ -1,5 +1,5 @@
 // hospital_assignment.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// test 
 
 //This program is hospital management system using object-oriented programming.
 #include<iostream>
@@ -212,6 +212,7 @@ public:
 		cout << "Address: " << address << endl;
 		cout << "Illness this one?: " << illness << endl;
 		cout << "Addmission date: " << this->admission_date << endl;
+		cout << "------------------------------" << endl;
 
 	}
 };
@@ -351,6 +352,8 @@ public:
 		//patientVector.erase(patientVector.begin() + element_to_update);
 		cout << patientVector[element_to_update].name << " has been updated" << endl;
 
+		save(patientVector);
+
 	}
 	
 
@@ -410,6 +413,7 @@ public:
 		
 		patientVector.erase(patientVector.begin() + element_to_remove);
 		cout << list[element_to_remove].name << " has been removed" << endl;
+		save(patientVector);
 		
 	
 	}
@@ -447,14 +451,170 @@ public:
 		}
 	}
 
+	void set_password()
+	{
+		string password;
+		cout << "Enter a password: ";
+		cin >> password;
+		for (int i = 0; i < password.length(); i++)
+		{
+			password[i] = password[i] + 100;
+		}
+		cout << password << endl;
+		ofstream myoutputfile;
+		myoutputfile.open("admin.txt");
+		myoutputfile << password;
+		myoutputfile.close();
+	}
+
+	string get_password()
+	{
+		string line;
+		ifstream myfile("admin.txt");
+		if (myfile.is_open())
+		{
+			while (getline(myfile, line))
+			{
+				cout << line << '\n';
+				for (int i = 0; i < line.length(); i++)
+				{
+					line[i] = line[i] - 100;
+					cout << line[i];
+				}
+			}
+
+			cout << "line: " << line << endl;
+			myfile.close();
+		}
+
+		else cout << "Unable to open file";
+
+		cout << "Enter password: ";
+		string passwordguess;
+		cin >> passwordguess;
+		if (passwordguess == line)
+		{
+			cout << "Correct password" << endl;
+			return line;
+		}
+		else
+		{
+			cout << "Incorrect password" << endl;
+		}
+	}
+
 	// sets information of the Hopspital
 	void ourinfoset()
 	{
+		//check if password file exists, if not force user to create one 
+		ofstream admin;
+		admin.open("admin.txt");
+		if (!admin)
+		{
+			cout << "You need to create a password" << endl;
+			cout << "Default password is 'admin'" << endl;
+			set_password();
+		}
+		admin.close();
+
+
+		string input = " ";
+		cout << "Enter password > ";
+		cin >> input;
+		string password = get_password();
+
+		if (password == input)
+		{
+			ofstream infoFile;
+			infoFile.open("HospitalInfo.txt");
+			if (!infoFile)
+			{
+				cout << "Error opening file" << endl;
+				//exit(1);
+			}
+
+			string name, address, manager;
+			cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because if was skipping the fist input
+			cout << "Enter hospital name > ";
+			//cin >> name;
+			getline(cin, name);
+			cout << "Enter hospital address > ";
+			//cin >> address;
+			getline(cin, address);
+			cout << "Enter hospital manager > ";
+			//cin >> manager;
+			getline(cin, manager);
+
+			infoFile << name << endl << address << endl << manager << endl;
+			cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
+
+			infoFile.close();
+
+		}
+		else
+		{
+			cout << "Incorrect password" << endl;
+		}
+
+
+		//ofstream infoFile;
+		//infoFile.open("HospitalInfo.txt");
+		//if (!infoFile)
+		//{
+		//	cout << "Error opening file" << endl;
+		//	//exit(1);
+		//}
+		//
+		//string name, address, manager;
+		//cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because if was skipping the fist input
+		//cout << "Enter hospital name > ";
+		////cin >> name;
+		//getline(cin, name);
+		//cout << "Enter hospital address > ";
+		////cin >> address;
+		//getline(cin, address);
+		//cout << "Enter hospital manager > ";
+		////cin >> manager;
+		//getline(cin, manager);
+
+		//infoFile << name << endl << address << endl << manager << endl;
+		//cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
+
+		//infoFile.close();
 
 	}
 	// displays information of the hospital
 	void displayInfo()
 	{
+		string name, address, manager;
+		ifstream infoFile;
+		infoFile.open("HospitalInfo.txt");
+		string line;
+
+		while (!infoFile.eof())
+		{
+			//getline(infoFile, line);
+			//cout << line << endl;
+			//if(!(infoFile >> name)) break;
+			//if(!(infoFile >> address)) break;
+			//if(!(infoFile >> manager)) break;
+			if(!(getline(infoFile, name, '\n'))) break;
+			cout << "Hospital name: " << name << endl;
+			if(!(getline(infoFile, address, '\n'))) break;
+			cout << "Hospital address: " << address << endl;
+			if(!(getline(infoFile, manager, '\n'))) break;
+			cout << "Hospital manager: " << manager << endl;
+
+		}
+
+		infoFile.close();
+
+		//cin.ignore(1, '\n');
+		//cout << "Hospital name: " << name << endl; //why is this empty?
+		//cout << "Hospital address: " << address << endl;
+		//cout << "Hospital manager: " << manager << endl;
+
+
 
 	}
 	// reads information of patients and personnel from file and stores them in memory
@@ -467,14 +627,6 @@ public:
 		string line;
 		Patient p;
 
-/*		while (getline(patientFile, line))
-		{
-			p.id;
-			p.name;
-			sscanf(line.c_str(), "%[^],%d", &p.id, &p.name);
-			patientVector.push_back((p));
-			}*/
-		
 		while (!patientFile.eof())
 		{
 
@@ -543,13 +695,13 @@ public:
 			cout << i << endl;
 			if (patientVector[i].id != i)
 			{
-				cout << "if id = i" << endl;
+				//cout << "if id = i" << endl;
 				id = i;
 				break;
 			} 
 			else
 			{
-				cout << "else id = i + 1" << endl;
+				//cout << "else id = i + 1" << endl;
 				id = i + 1;
 			}
 		}
