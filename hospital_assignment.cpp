@@ -462,7 +462,7 @@ public:
 		}
 		cout << password << endl;
 		ofstream myoutputfile;
-		myoutputfile.open("test.txt");
+		myoutputfile.open("admin.txt");
 		myoutputfile << password;
 		myoutputfile.close();
 	}
@@ -470,7 +470,7 @@ public:
 	string get_password()
 	{
 		string line;
-		ifstream myfile("test.txt");
+		ifstream myfile("admin.txt");
 		if (myfile.is_open())
 		{
 			while (getline(myfile, line))
@@ -506,10 +506,17 @@ public:
 	// sets information of the Hopspital
 	void ourinfoset()
 	{
-		//password stuff goes here
+		//check if password file exists, if not force user to create one 
+		ofstream admin;
+		admin.open("admin.txt");
+		if (!admin)
+		{
+			cout << "You need to create a password" << endl;
+			cout << "Default password is 'admin'" << endl;
+			set_password();
+		}
+		admin.close();
 
-		//this sets a new password everry time i need a way to only do it once maybe
-		set_password();
 
 		string input = " ";
 		cout << "Enter password > ";
