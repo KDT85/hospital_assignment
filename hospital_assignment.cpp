@@ -70,7 +70,9 @@ public:
 	int id;
 	string name;
 	char gender;
-	int dob;
+	int dob_day;
+	int dob_month;
+	int dob_year;
 	string address;
 
 	// define constructors
@@ -79,7 +81,9 @@ public:
 		id = 0;
 		name = "person_name";
 		gender = 'g';
-		dob = 10011970;
+		dob_day = 01;
+		dob_month = 01;
+		dob_year = 1970;
 		address = "qwerty";
 
 		clog << "CALLED CTR" << endl;
@@ -91,19 +95,52 @@ public:
 		this->id = p.id;
 		this->name = p.name;
 		this->gender = p.gender;
-		this->dob = p.dob;
+		this->dob_day = p.dob_day;
+		this->dob_month = p.dob_month;
+		this->dob_year = p.dob_year;
 		this->address = p.address;
 	}
-	Person(int id, string name, char gender, int dob, string address)
+	Person(int id, string name, char gender, int dob_day, int dob_month, int dob_year, string address)
 	{
 		this->id = id;
 		this->name = name;
 		this->gender = gender;
-		this->dob = dob;
+		this->dob_day = dob_day;
+		this->dob_month = dob_month;
+		this->dob_year = dob_year;
 		this->address = address;
 
 		clog << "CALLED OL CTR" << endl;
 
+	}
+
+	//calculate age
+	// 
+
+	int calculate_age(int day, int month, int year)
+	{
+		// get current date
+		struct tm newtime;
+		time_t now = time(0);
+		localtime_s(&newtime, &now);
+		int current_year = 1900 + newtime.tm_year;
+		int current_month = 1 + newtime.tm_mon;
+		int current_day = newtime.tm_mday;
+		
+		// calculate age
+		int age = current_year - year;
+		if (current_month < month)
+		{
+			age--;
+		}
+		else if (current_month == month)
+		{
+			if (current_day < day)
+			{
+				age--;
+			}
+		}
+		return age;
 	}
 
 	//print section, ive added a print section for each class
@@ -146,15 +183,36 @@ public:
 		return this->gender;
 	}
 
-	void set_dob(const int dob)
+	void set_dob_day(const int dob_day)
 	{
-		this->dob = dob;
+		this->dob_day = dob_day;
 	}
 
-	int get_dob()
+	int get_dob_day()
 	{
-		return this->dob;
+		return this->dob_day;
 	}
+
+	void set_dob_month(const int dob_month)
+	{
+		this->dob_month = dob_month;
+	}
+
+	int get_dob_month()
+	{
+		return this->dob_month;
+	}
+
+	void set_dob_year(const int dob_year)
+	{
+		this->dob_year = dob_year;
+	}
+
+	int get_dob_year()
+	{
+		return this->dob_year;
+	}
+
 
 	void set_address(const string address)
 	{
@@ -182,15 +240,15 @@ public:
 		illness = "some illness";
 		admission_date = "some date";
 	}
-	Patient(int id, string name, char gender, int dob, string address,
+	Patient(int id, string name, char gender, int dob_day, int dob_month, int dob_year, string address,
 		string illness, string	admission_date)
-		: Person(id, name, gender, dob, address)
+		: Person(id, name, gender, dob_day, dob_month, dob_year, address)
 	{
 		this->illness = illness;
 		this->admission_date = admission_date;
 
 	}
-	Patient(const Patient& p) : Person(p.id, p.name, p.gender, p.dob, p.address)
+	Patient(const Patient& p) : Person(p.id, p.name, p.gender, p.dob_day, p.dob_month, p.dob_year, p.address)
 	{
 		clog << "CPY CTR CALLED" << endl;
 		this->illness = p.illness;
@@ -207,8 +265,9 @@ public:
 		cout << "Patient ID: " << id << endl;
 		cout << "Patient Name: " << name << endl;
 		cout << "Gender: " << gender << endl;
-		cout << "Date of birth: " << dob << endl;
-		cout << "Age: " << "todays date minus dob somwhow" << endl;
+		cout << "Date of birth: " << dob_day << "/" << dob_month << "/" << dob_year << endl;
+		int age = calculate_age(dob_day, dob_month, dob_year);
+		cout << "Age: " << age << endl;
 		cout << "Address: " << address << endl;
 		cout << "Illness this one?: " << illness << endl;
 		cout << "Addmission date: " << this->admission_date << endl;
@@ -225,13 +284,13 @@ public:
 	string staff_expertise;
 	Personnel() :Person()
 	{}
-	Personnel(int id, string name, char gender, int dob, string address,
+	Personnel(int id, string name, char gender, int dob_day, int dob_month, int dob_year, string address,
 		string staff_post, string	staff_expertise)
-		: Person(id, name, gender, dob, address)
+		: Person(id, name, gender, dob_day, dob_month, dob_year, address)
 	{
 
 	}
-	Personnel(const Personnel& p) : Person(p.id, p.name, p.gender, p.dob, p.address)
+	Personnel(const Personnel& p) : Person(p.id, p.name, p.gender, p.dob_day, p.dob_month, p.dob_year, p.address)
 	{
 
 	}
@@ -299,13 +358,15 @@ public:
 			int id = list.at(i).get_id();
 			string name = list.at(i).get_name();
 			char gender = list.at(i).gender;
-			int dob = list.at(i).dob;
+			int dob_day = list.at(i).dob_day;
+			int dob_month = list.at(i).dob_month;
+			int dob_year = list.at(i).dob_year;
 			string address = list.at(i).address;
 			string illness = list.at(i).illness;
 			string admission_date = list.at(i).admission_date;
 
 			// there must be a way to this in a for loop
-			printPatient << id << endl << name  << endl << gender << endl << dob << endl  << address << endl << illness << endl << admission_date << endl;
+			printPatient << id << endl << name  << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year  << endl  << address << endl << illness << endl << admission_date << endl;
 		}
 		printPatient.close();
 
@@ -335,9 +396,16 @@ public:
 		cout << "Enter patient gender (M/F): ";
 		cin >> patientVector[element_to_update].gender;
 		cout << patientVector[element_to_update].gender << endl;
-		cout << "Enter patient date of birth (DDMMYYYY): ";
-		cin >> patientVector[element_to_update].dob;
-		cout << patientVector[element_to_update].dob << endl;
+		cout << "Enter patient date of birth (DD/MM/YYYY): ";
+		cout << "Day (DD): ";
+		cin >> patientVector[element_to_update].dob_day;
+		cout << patientVector[element_to_update].dob_day << endl;
+		cout << "Month (MM): ";
+		cin >> patientVector[element_to_update].dob_month;
+		cout << patientVector[element_to_update].dob_month << endl;
+		cout << "Year (YYYY): ";
+		cin >> patientVector[element_to_update].dob_year;
+		cout << patientVector[element_to_update].dob_year << endl;
 		cout << "Enter patient address: ";
 		cin >> patientVector[element_to_update].address;
 		cout << patientVector[element_to_update].address << endl;
@@ -423,6 +491,7 @@ public:
 	{
 	
 	}
+	
 
 	// trying to implement a search function that will search for a patient by name and 
 	//return the patient id 
@@ -648,7 +717,9 @@ public:
 			if (!(patientFile >> p.id)) break;
 			if (!(patientFile >> p.name)) break;
 			if (!(patientFile >> p.gender))break;
-			if (!(patientFile >> p.dob))break;
+			if (!(patientFile >> p.dob_day))break;
+			if (!(patientFile >> p.dob_month))break;
+			if (!(patientFile >> p.dob_year))break;
 			if (!(patientFile >> p.address))break;
 			if (!(patientFile >> p.illness))break;
 			if (!(patientFile >> p.admission_date))break;
@@ -663,7 +734,9 @@ public:
 			if (!(personnelFile >> p2.id)) break;
 			if (!(personnelFile >> p2.name))break;
 			if (!(personnelFile >> p2.gender))break;
-			if (!(personnelFile >> p2.dob)) break;
+			if (!(personnelFile >> p2.dob_day)) break;
+			if (!(personnelFile >> p2.dob_month)) break;
+			if (!(personnelFile >> p2.dob_year)) break;
 			if (!(personnelFile >> p2.address)) break;
 			if (!(personnelFile >> p2.staff_post)) break;
 			if (!(personnelFile >> p2.staff_expertise)) break;
@@ -681,7 +754,12 @@ public:
 		cout << "Enter personnel gender: ";
 		cin >> p.gender;
 		cout << "Enter personnel date of birth (DDMMYYYY): ";
-		cin >> p.dob;
+		cout << "Day (DD): ";
+		cin >> p.dob_day;
+		cout << "Month (MM): ";
+		cin >> p.dob_month;
+		cout << "Year (YYYY): ";
+		cin >> p.dob_year;
 		cout << "Enter personnel address: ";
 		cin >> p.address;
 		cout << "Enter personnel post: ";
@@ -721,25 +799,29 @@ public:
 			}
 		}
 		p.id = id;
-		cout << "ID " << p.id << endl;
+		//cout << "ID " << p.id << endl;
 		cout << "Enter patient name: ";
 		cin >> p.name;
-		cout << p.name << endl;
+		//cout << p.name << endl;
 		cout << "Enter patient gender (M/F): ";
 		cin >> p.gender;
-		cout << p.gender << endl;
+		//cout << p.gender << endl;
 		cout << "Enter patient date of birth (DDMMYYYY): ";
-		cin >> p.dob;
-		cout << p.dob << endl;
+		cout << "Day (DD): ";
+		cin >> p.dob_day;
+		cout << "Month (MM): ";
+		cin >> p.dob_month;
+		cout << "Year (YYYY): ";
+		cin >> p.dob_year;
 		cout << "Enter patient address: ";
 		cin >> p.address;
-		cout << p.address << endl;
+		//cout << p.address << endl;
 		cout << "Enter patient illness: ";
 		cin >> p.illness;
-		cout << p.illness << endl;
+		//cout << p.illness << endl;
 		cout << "Enter patient admission date (DDMMYYYY): ";
 		cin >> p.admission_date;
-		cout << p.admission_date << endl;
+		//cout << p.admission_date << endl;
 
 		add(p);
 		return p;
