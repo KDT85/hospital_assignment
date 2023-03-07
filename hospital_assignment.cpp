@@ -148,7 +148,7 @@ public:
 public:
 	void print()
 	{
-		//This should print one person from the vector
+		//not sure why this is here because the functionality is already covered
 
 	}
 
@@ -411,7 +411,7 @@ public:
 
 		//i would like to ask which attribute to update and then update only that attribute
 		cout << "Enter patient name: ";
-		cin >> patientVector[element_to_update].name;
+		getline(cin, patientVector[element_to_update].name);
 		cout << patientVector[element_to_update].name << endl;
 		cout << "Enter patient gender (M/F): ";
 		cin >> patientVector[element_to_update].gender;
@@ -427,13 +427,13 @@ public:
 		cin >> patientVector[element_to_update].dob_year;
 		cout << patientVector[element_to_update].dob_year << endl;
 		cout << "Enter patient address: ";
-		cin >> patientVector[element_to_update].address;
+		getline(cin, patientVector[element_to_update].address);
 		cout << patientVector[element_to_update].address << endl;
 		cout << "Enter patient illness: ";
 		cin >> patientVector[element_to_update].illness;
 		cout << patientVector[element_to_update].illness << endl;
 		cout << "Enter patient admission date (DDMMYYYY): ";
-		cin >> patientVector[element_to_update].admission_date;
+		getline(cin, patientVector[element_to_update].admission_date);
 		cout << patientVector[element_to_update].admission_date << endl;
 
 
@@ -464,7 +464,7 @@ public:
 
 		//i would like to ask which attribute to update and then update only that attribute
 		cout << "Enter personnel name: ";
-		cin >> personnelVector[element_to_update].name;
+		getline(cin, personnelVector[element_to_update].name);
 		cout << personnelVector[element_to_update].name << endl;
 		cout << "Enter personnel gender (M/F): ";
 		cin >> personnelVector[element_to_update].gender;
@@ -480,13 +480,13 @@ public:
 		cin >> personnelVector[element_to_update].dob_year;
 		cout << personnelVector[element_to_update].dob_year << endl;
 		cout << "Enter personnel address: ";
-		cin >> personnelVector[element_to_update].address;
+		getline(cin, personnelVector[element_to_update].address);
 		cout << personnelVector[element_to_update].address << endl;
 		cout << "Enter personnel post: ";
-		cin >> personnelVector[element_to_update].staff_post;
+		getline(cin, personnelVector[element_to_update].staff_post);
 		cout << personnelVector[element_to_update].staff_post << endl;
 		cout << "Enter personnel expertise: ";
-		cin >> personnelVector[element_to_update].staff_expertise;
+		getline(cin, personnelVector[element_to_update].staff_expertise);
 		cout << personnelVector[element_to_update].staff_expertise << endl;
 
 
