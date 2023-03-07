@@ -865,7 +865,6 @@ public:
 			cout << i << endl;
 			if (patientVector[i].id != i)
 			{
-				//cout << "if id = i" << endl;
 				id = i;
 				break;
 			}
@@ -939,7 +938,7 @@ public:
 		Personnel p;
 		do {
 			clearScreen();
-			pMenu.show("PERSONEL MANAGEMENT PATIENT");
+			pMenu.show("PERSONEL MANAGEMENT");
 			Selection = pMenu.choice();
 			switch (Selection)
 			{
@@ -1028,7 +1027,7 @@ public:
 
 		do {
 			clearScreen();
-			pMenu.show("HOSPITAL SETTIENG");
+			pMenu.show("HOSPITAL SETTINGS");
 			Selection = pMenu.choice();
 			switch (Selection)
 			{
