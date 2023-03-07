@@ -258,7 +258,7 @@ public:
 
 	}
 
-	//prtin out all informaion of a given patient
+	//print out all informaion of a given patient
 	void print()
 
 	{
@@ -272,7 +272,6 @@ public:
 		cout << "Illness this one?: " << illness << endl;
 		cout << "Addmission date: " << this->admission_date << endl;
 		cout << "------------------------------" << endl;
-
 	}
 };
 // use inheritance to make Personel class based on Person class
@@ -283,22 +282,35 @@ public:
 	string staff_post;
 	string staff_expertise;
 	Personnel() :Person()
-	{}
+	{
+		staff_post = "Doctor";
+		staff_expertise = "10 years";
+	}
 	Personnel(int id, string name, char gender, int dob_day, int dob_month, int dob_year, string address,
 		string staff_post, string	staff_expertise)
 		: Person(id, name, gender, dob_day, dob_month, dob_year, address)
 	{
+		this->staff_post = staff_post;
+		this->staff_expertise = staff_expertise;
 
 	}
 	Personnel(const Personnel& p) : Person(p.id, p.name, p.gender, p.dob_day, p.dob_month, p.dob_year, p.address)
 	{
-
+		this->staff_post = p.staff_post;
+		this->staff_expertise = p.staff_expertise;
 	}
 	void print()
 	{
-		//Person::print(p);
-
-
+		cout << "Personnel ID: " << id << endl;
+		cout << "Personnel Name: " << name << endl;
+		cout << "Gender: " << gender << endl;
+		cout << "Date of birth: " << dob_day << "/" << dob_month << "/" << dob_year << endl;
+		int age = calculate_age(dob_day, dob_month, dob_year);
+		cout << "Age: " << age << endl;
+		cout << "Address: " << address << endl;
+		cout << "Illness this one?: " << illness << endl;
+		cout << "Addmission date: " << this->admission_date << endl;
+		cout << "------------------------------" << endl;
 	}
 };
 
@@ -306,22 +318,21 @@ class Hospital_Class
 {
 public:
 	vector < Patient> patientVector;
-	vector < Personnel> staffVector;
-	// adds a Patient to patientVector 
+	vector < Personnel> personnelVector;
+	//adds a Patient to patientVector 
 	void add(Patient p)
-
 	{
-
-
 		patientVector.push_back(p);
 		cout << "Patient added to list" << p.id << endl;
 
 		Sleep(900);
 	}
-	//adds a Personnel to staffVector
+
+	//adds Personnel to personnelVector
 	void add(Personnel p2)
 	{
-		staffVector.push_back(p2);
+		personnelVector.push_back(p2);
+		cout << "Personnel added to list" << p.id << endl
 
 
 	}
@@ -335,10 +346,20 @@ public:
 			cout << "Error opening file" << endl;
 			//exit(1);
 		}
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < list.size(); i++)
 		{
-			
-			printPersonnel  << i << endl;
+			int id = list.at(i).get_id();
+			string name = list.at(i).get_name();
+			char gender = list.at(i).gender;
+			int dob_day = list.at(i).dob_day;
+			int dob_month = list.at(i).dob_month;
+			int dob_year = list.at(i).dob_year;
+			string address = list.at(i).address;
+			string illness = list.at(i).illness;
+			string admission_date = list.at(i).admission_date;
+
+			// there must be a way to this in a for loop
+			printPersonnel << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << illness << endl << admission_date << endl;
 		}
 		printPersonnel.close();
 	}
@@ -417,7 +438,7 @@ public:
 		cout << patientVector[element_to_update].admission_date << endl;
 
 
-		//patientVector.erase(patientVector.begin() + element_to_update);
+
 		cout << patientVector[element_to_update].name << " has been updated" << endl;
 
 		save(patientVector);
@@ -428,27 +449,63 @@ public:
 	// update Personnel list
 	void update(vector <Personnel> list)
 	{
-		cout << "Updating Personnel List" << endl;
+		// find the personnel to update
+		int id;
+		cout << "Enter id of personnel you wish to update > ";
+		cin >> id;
+		int element_to_update = 0;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list[i].id == id)
+			{
+				element_to_update = i;
+				cout << list[element_to_update].name << " will be updated" << endl;
+			}
+		}
+
+		//i would like to ask which attribute to update and then update only that attribute
+		cout << "Enter personnel name: ";
+		cin >> personnelVector[element_to_update].name;
+		cout << personnelVector[element_to_update].name << endl;
+		cout << "Enter personnel gender (M/F): ";
+		cin >> personnelVector[element_to_update].gender;
+		cout << personnelVector[element_to_update].gender << endl;
+		cout << "Enter personnel date of birth (DD/MM/YYYY): ";
+		cout << "Day (DD): ";
+		cin >> personnelVector[element_to_update].dob_day;
+		cout << personnelVector[element_to_update].dob_day << endl;
+		cout << "Month (MM): ";
+		cin >> personnelVector[element_to_update].dob_month;
+		cout << personnelVector[element_to_update].dob_month << endl;
+		cout << "Year (YYYY): ";
+		cin >> personnelVector[element_to_update].dob_year;
+		cout << personnelVector[element_to_update].dob_year << endl;
+		cout << "Enter personnel address: ";
+		cin >> personnelVector[element_to_update].address;
+		cout << personnelVector[element_to_update].address << endl;
+		cout << "Enter personnel illness: ";
+		cin >> personnelVector[element_to_update].illness;
+		cout << personnelVector[element_to_update].illness << endl;
+		cout << "Enter personnel admission date (DDMMYYYY): ";
+		cin >> personnelVector[element_to_update].admission_date;
+		cout << personnelVector[element_to_update].admission_date << endl;
+
+
+
+		cout << personnelVector[element_to_update].name << " has been updated" << endl;
+
+		save(personnelVector);
+
 	}
 	// display all data of patient list
 	void display(vector< Patient> patientVector)
 	{
 
-		clog << patientVector.size() << endl;
+		//clog << patientVector.size() << endl;
 
 		for (int i = 0; i < patientVector.size(); i++)
 		{
-			patientVector[i].print();
-			
-			/*cout << "id = " << patientVector.at(i).get_id() << endl;
-			cout << "name = " << patientVector.at(i).name << endl;
-			/*		cout << "gender = " << patientVector[i].gender << endl;
-						cout << "date of birth = " << patientVector[i].dob << endl;
-						cout << "address = " << patientVector[i].address << endl;
-						cout << "illness = " << patientVector[i].illness << endl;
-						cout << "admission date = " << patientVector[i].admission_date << endl;*
-
-*/
+			patientVector[i].print();			
 		}
 
 
@@ -456,12 +513,13 @@ public:
 	// display all data of personnel list
 	void display(vector< Personnel> list)
 	{
-		for (int i = 0; i < staffVector.size(); i++)
+		for (int i = 0; i < personnelVector.size(); i++)
 		{
-			cout << staffVector[i].name << endl;
+			personnelVector[i].print();
 		}
 
 	}
+
 	// read an id and delete its information from both memory and database of patients
 	void remove(vector <Patient> list)
 	{
@@ -489,6 +547,23 @@ public:
 
 	void remove(vector <Personnel> list)
 	{
+		int id;
+		cout << "Enter id of personnel you wish to remove > ";
+		cin >> id;
+		int element_to_remove = 0;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list[i].id == id)
+			{
+				element_to_remove = i;
+				cout << list[element_to_remove].name << " will be removed" << endl;
+			}
+		}
+
+
+		personnelVector.erase(personnelVector.begin() + element_to_remove);
+		cout << list[element_to_remove].name << " has been removed" << endl;
+		save(personnelVector);
 	
 	}
 	
@@ -500,7 +575,7 @@ public:
 	{
 		string name;
 		cout << "Enter name of patient you wish to search for > ";
-		cin >> name;
+		getline(cin, name);
 		int element_to_search;
 		for (int i = 0; i < list.size(); i++)
 		{
@@ -516,6 +591,30 @@ public:
 			else
 			{
 				cout << "Patient not found" << endl;
+			}
+		}
+	}
+
+	void search(vector <Personnel> list)
+	{
+		string name;
+		cout << "Enter name of personnel you wish to search for > ";
+		getline(cin, name);
+		int element_to_search;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list[i].name == name)
+			{
+				element_to_search = i;
+				cout << list[element_to_search].name << " has been found" << endl;
+				cout << "id = " << list[element_to_search].id << endl;
+				cout << "name = " << list[element_to_search].name << endl;
+
+				break;
+			}
+			else
+			{
+				cout << "Personnel not found" << endl;
 			}
 		}
 	}
@@ -641,30 +740,7 @@ public:
 		}
 
 
-		//ofstream infoFile;
-		//infoFile.open("HospitalInfo.txt");
-		//if (!infoFile)
-		//{
-		//	cout << "Error opening file" << endl;
-		//	//exit(1);
-		//}
-		//
-		//string name, address, manager;
-		//cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because if was skipping the fist input
-		//cout << "Enter hospital name > ";
-		////cin >> name;
-		//getline(cin, name);
-		//cout << "Enter hospital address > ";
-		////cin >> address;
-		//getline(cin, address);
-		//cout << "Enter hospital manager > ";
-		////cin >> manager;
-		//getline(cin, manager);
-
-		//infoFile << name << endl << address << endl << manager << endl;
-		//cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
-
-		//infoFile.close();
+		
 
 	}
 	// displays information of the hospital
@@ -677,30 +753,17 @@ public:
 
 		while (!infoFile.eof())
 		{
-			//getline(infoFile, line);
-			//cout << line << endl;
-			//if(!(infoFile >> name)) break;
-			//if(!(infoFile >> address)) break;
-			//if(!(infoFile >> manager)) break;
 			if(!(getline(infoFile, name, '\n'))) break;
 			cout << "Hospital name: " << name << endl;
 			if(!(getline(infoFile, address, '\n'))) break;
 			cout << "Hospital address: " << address << endl;
 			if(!(getline(infoFile, manager, '\n'))) break;
 			cout << "Hospital manager: " << manager << endl;
-
 		}
 
 		infoFile.close();
-
-		//cin.ignore(1, '\n');
-		//cout << "Hospital name: " << name << endl; //why is this empty?
-		//cout << "Hospital address: " << address << endl;
-		//cout << "Hospital manager: " << manager << endl;
-
-
-
 	}
+
 	// reads information of patients and personnel from file and stores them in memory
 	void initialize()
 	{
@@ -740,20 +803,44 @@ public:
 			if (!(personnelFile >> p2.address)) break;
 			if (!(personnelFile >> p2.staff_post)) break;
 			if (!(personnelFile >> p2.staff_expertise)) break;
-			staffVector.push_back(p2);
+			personnelVector.push_back(p2);
 		}
 		personnelFile.close();
 	}
 	// read data for a personnel from keyboard
 	Personnel read(Personnel p)
 	{
-		cout << "Enter personnel id: ";//how can we auto generate a unique id for each person?		
-		cin >> p.id;
+		clog << "personnel read called" << endl;
+		// im going to increment the id by 1 each time a new personnel is added
+		//then i need to use the name to search for the id in the vector
+		//cout << "Enter personnel id: ";
+		int id = 0;
+		for (int i = 0; i < personnelVector.size(); i++)
+		{
+			cout << "ID " << personnelVector[i].id << endl;
+			cout << i << endl;
+			if (personnelVector[i].id != i)
+			{
+				//cout << "if id = i" << endl;
+				id = i;
+				break;
+			}
+			else
+			{
+				//cout << "else id = i + 1" << endl;
+				id = i + 1;
+			}
+		}
+		p.id = id;
+		//cout << "ID " << p.id << endl;
 		cout << "Enter personnel name: ";
-		cin >> p.name;
-		cout << "Enter personnel gender: ";
+		cin.ignore(1, '\n');
+		getline(cin, p.name);
+		//cout << p.name << endl;
+		cout << "Enter personnel gender (M/F): ";
 		cin >> p.gender;
-		cout << "Enter personnel date of birth (DDMMYYYY): ";
+		//cout << p.gender << endl;
+		cout << "Enter personnel date of birth (DDMMYYYY)" << endl;
 		cout << "Day (DD): ";
 		cin >> p.dob_day;
 		cout << "Month (MM): ";
@@ -761,13 +848,16 @@ public:
 		cout << "Year (YYYY): ";
 		cin >> p.dob_year;
 		cout << "Enter personnel address: ";
-		cin >> p.address;
-		cout << "Enter personnel post: ";
-		cin >> p.staff_post;
-		cout << p.staff_post << endl;
-		cout << "Enter personnel expertise: ";
-		cin >> p.staff_expertise;
-		cout << p.staff_expertise << endl;
+		cin.ignore(1, '\n');
+		getline(cin, p.address);
+		//cout << p.address << endl;
+		cout << "Enter personnel illness: ";
+		cin >> p.illness;
+		//cout << p.illness << endl;
+		cout << "Enter personnel admission date (DDMMYYYY): ";
+		cin >> p.admission_date;
+		//cout << p.admission_date << endl;
+
 		add(p);
 		return p;
 	}
@@ -861,7 +951,7 @@ public:
 	void personnelManegment()
 	{
 		int Selection;
-		string arr[] = { "Add", "Update", "Delete", "Display", "Back to Main Menu" };
+		string arr[] = { "Add", "Search", "Update", "Delete", "Display", "Back to Main Menu" };
 		int size = sizeof(arr) / sizeof(arr[0]);
 		Menu pMenu(arr, size);
 
@@ -877,16 +967,20 @@ public:
 				read(p);
 				break;
 			case 2:
-				update(staffVector);
+				search(personnelVector);
 				break;
 			case 3:
-				remove(staffVector);
+				update(personnelVector);
 				break;
 			case 4:
-				display(staffVector);
+				remove(personnelVector);
 				_getch();
 				break;
-			case 5: return;
+			case 5:
+				display(personnelVector);
+				_getch();
+				break;
+			case 6: return;
 			default:
 				cout << "Invalid input!\nPlease select correct option. \n";
 				Sleep(900);
@@ -979,14 +1073,15 @@ public:
 	};
 	void shutdown(int x)
 	{
-		save(patientVector); // this should be called else wherrer in the program too
+		save(patientVector); // this is called elsewherew in program too
+		save(personnelVector); // this is called elsewherew in program too
 
 		//test for loop to see whats in the vetor
-		for (int i = 0; i < patientVector.size(); i++)
-		{
-			cout << "patientVector" << i << " - ";
-			cout <<patientVector[i].name << endl;
-		}
+		//for (int i = 0; i < patientVector.size(); i++)
+		//{
+		//	cout << "patientVector" << i << " - ";
+		//	cout <<patientVector[i].name << endl;
+		//}
 		exit(x);
 	}
 };
