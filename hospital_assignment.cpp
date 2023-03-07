@@ -62,7 +62,7 @@ public:
 	}
 };
 
- 
+
 class Person
 {
 public:
@@ -126,7 +126,7 @@ public:
 		int current_year = 1900 + newtime.tm_year;
 		int current_month = 1 + newtime.tm_mon;
 		int current_day = newtime.tm_mday;
-		
+
 		// calculate age
 		int age = current_year - year;
 		if (current_month < month)
@@ -148,7 +148,7 @@ public:
 public:
 	void print()
 	{
-	//This should print one person from the vector
+		//This should print one person from the vector
 
 	}
 
@@ -226,7 +226,7 @@ public:
 
 
 
-	
+
 };
 // use inheritance to make Patient class based on Person class
 
@@ -269,7 +269,7 @@ public:
 		int age = calculate_age(dob_day, dob_month, dob_year);
 		cout << "Age: " << age << endl;
 		cout << "Address: " << address << endl;
-		cout << "Illness this one?: " << illness << endl;
+		cout << "Illness: " << illness << endl;
 		cout << "Addmission date: " << this->admission_date << endl;
 		cout << "------------------------------" << endl;
 	}
@@ -308,8 +308,8 @@ public:
 		int age = calculate_age(dob_day, dob_month, dob_year);
 		cout << "Age: " << age << endl;
 		cout << "Address: " << address << endl;
-		cout << "Illness this one?: " << illness << endl;
-		cout << "Addmission date: " << this->admission_date << endl;
+		cout << "Post: " << staff_post << endl;
+		cout << "Expertise: " << staff_expertise << endl;
 		cout << "------------------------------" << endl;
 	}
 };
@@ -332,10 +332,9 @@ public:
 	void add(Personnel p2)
 	{
 		personnelVector.push_back(p2);
-		cout << "Personnel added to list" << p.id << endl
-
-
+		cout << "Personnel added to list" << p2.id << endl;
 	}
+
 	// saves personnel list into file
 	void save(vector < Personnel> list)
 	{
@@ -355,11 +354,11 @@ public:
 			int dob_month = list.at(i).dob_month;
 			int dob_year = list.at(i).dob_year;
 			string address = list.at(i).address;
-			string illness = list.at(i).illness;
-			string admission_date = list.at(i).admission_date;
+			string staff_post = list.at(i).staff_post;
+			string staff_expertise = list.at(i).staff_expertise;
 
 			// there must be a way to this in a for loop
-			printPersonnel << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << illness << endl << admission_date << endl;
+			printPersonnel << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << staff_post << endl << staff_expertise << endl;
 		}
 		printPersonnel.close();
 	}
@@ -387,7 +386,7 @@ public:
 			string admission_date = list.at(i).admission_date;
 
 			// there must be a way to this in a for loop
-			printPatient << id << endl << name  << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year  << endl  << address << endl << illness << endl << admission_date << endl;
+			printPatient << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << illness << endl << admission_date << endl;
 		}
 		printPatient.close();
 
@@ -444,7 +443,7 @@ public:
 		save(patientVector);
 
 	}
-	
+
 
 	// update Personnel list
 	void update(vector <Personnel> list)
@@ -483,12 +482,12 @@ public:
 		cout << "Enter personnel address: ";
 		cin >> personnelVector[element_to_update].address;
 		cout << personnelVector[element_to_update].address << endl;
-		cout << "Enter personnel illness: ";
-		cin >> personnelVector[element_to_update].illness;
-		cout << personnelVector[element_to_update].illness << endl;
-		cout << "Enter personnel admission date (DDMMYYYY): ";
-		cin >> personnelVector[element_to_update].admission_date;
-		cout << personnelVector[element_to_update].admission_date << endl;
+		cout << "Enter personnel post: ";
+		cin >> personnelVector[element_to_update].staff_post;
+		cout << personnelVector[element_to_update].staff_post << endl;
+		cout << "Enter personnel expertise: ";
+		cin >> personnelVector[element_to_update].staff_expertise;
+		cout << personnelVector[element_to_update].staff_expertise << endl;
 
 
 
@@ -505,7 +504,7 @@ public:
 
 		for (int i = 0; i < patientVector.size(); i++)
 		{
-			patientVector[i].print();			
+			patientVector[i].print();
 		}
 
 
@@ -535,13 +534,13 @@ public:
 				cout << list[element_to_remove].name << " will be removed" << endl;
 			}
 		}
-		
-		
+
+
 		patientVector.erase(patientVector.begin() + element_to_remove);
 		cout << list[element_to_remove].name << " has been removed" << endl;
 		save(patientVector);
-		
-	
+
+
 	}
 	// read an id and delete its information from both memory and database of personnel
 
@@ -564,9 +563,9 @@ public:
 		personnelVector.erase(personnelVector.begin() + element_to_remove);
 		cout << list[element_to_remove].name << " has been removed" << endl;
 		save(personnelVector);
-	
+
 	}
-	
+
 
 	// trying to implement a search function that will search for a patient by name and 
 	//return the patient id 
@@ -585,7 +584,7 @@ public:
 				cout << list[element_to_search].name << " has been found" << endl;
 				cout << "id = " << list[element_to_search].id << endl;
 				cout << "name = " << list[element_to_search].name << endl;
-				
+
 				break;
 			}
 			else
@@ -740,7 +739,7 @@ public:
 		}
 
 
-		
+
 
 	}
 	// displays information of the hospital
@@ -753,11 +752,11 @@ public:
 
 		while (!infoFile.eof())
 		{
-			if(!(getline(infoFile, name, '\n'))) break;
+			if (!(getline(infoFile, name, '\n'))) break;
 			cout << "Hospital name: " << name << endl;
-			if(!(getline(infoFile, address, '\n'))) break;
+			if (!(getline(infoFile, address, '\n'))) break;
 			cout << "Hospital address: " << address << endl;
-			if(!(getline(infoFile, manager, '\n'))) break;
+			if (!(getline(infoFile, manager, '\n'))) break;
 			cout << "Hospital manager: " << manager << endl;
 		}
 
@@ -788,7 +787,7 @@ public:
 			if (!(patientFile >> p.admission_date))break;
 			patientVector.push_back(p);
 		}
-		
+
 		patientFile.close();
 
 		Personnel p2;
@@ -851,11 +850,11 @@ public:
 		cin.ignore(1, '\n');
 		getline(cin, p.address);
 		//cout << p.address << endl;
-		cout << "Enter personnel illness: ";
-		cin >> p.illness;
+		cout << "Enter personnel post: ";
+		cin >> p.staff_post;
 		//cout << p.illness << endl;
-		cout << "Enter personnel admission date (DDMMYYYY): ";
-		cin >> p.admission_date;
+		cout << "Enter personnel expertise: ";
+		cin >> p.staff_expertise;
 		//cout << p.admission_date << endl;
 
 		add(p);
@@ -881,7 +880,7 @@ public:
 				//cout << "if id = i" << endl;
 				id = i;
 				break;
-			} 
+			}
 			else
 			{
 				//cout << "else id = i + 1" << endl;
