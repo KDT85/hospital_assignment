@@ -631,7 +631,7 @@ public:
 			{
 				password[i] = password[i] + 100;
 			}
-			cout << password << endl;
+			//cout << password << endl;
 			ofstream myoutputfile;
 			myoutputfile.open("admin.txt");
 			myoutputfile << password;
@@ -652,7 +652,7 @@ public:
 		{
 			while (getline(myfile, line))
 			{
-				cout << line << '\n';
+				//cout << line << '\n';
 				for (int i = 0; i < line.length(); i++)
 				{
 					line[i] = line[i] - 100;
