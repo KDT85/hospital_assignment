@@ -916,7 +916,7 @@ public:
 			{
 			case 1: patientManagemnt(); break;
 			case 2: personnelManegment(); break;
-			case 3: displayInfo(); break;
+			case 3: displayInfo(); _getch(); break;
 			case 4: setting(); break;
 			case 5: shutdown(0);
 			default:
@@ -1034,6 +1034,7 @@ public:
 			{
 			case 1:
 				ourinfoset();
+
 				break;
 			case 2: return;
 
@@ -1050,7 +1051,7 @@ public:
 	}
 	void clearScreen()
 	{
-		//system("CLS");
+		system("CLS");
 	};
 	void shutdown(int x)
 	{
