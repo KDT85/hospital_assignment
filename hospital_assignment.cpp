@@ -86,12 +86,12 @@ public:
 		dob_year = 1970;
 		address = "qwerty";
 
-		clog << "CALLED CTR" << endl;
+		//clog << "CALLED CTR" << endl;
 
 	}
 	Person(const Person& p) : id(p.id)
 	{
-		clog << "CALLED COPY CTR" << endl;
+		//clog << "CALLED COPY CTR" << endl;
 		this->id = p.id;
 		this->name = p.name;
 		this->gender = p.gender;
@@ -110,7 +110,7 @@ public:
 		this->dob_year = dob_year;
 		this->address = address;
 
-		clog << "CALLED OL CTR" << endl;
+		//clog << "CALLED OL CTR" << endl;
 
 	}
 
@@ -152,7 +152,6 @@ public:
 
 	}
 
-	// i think luke did this
 	void set_id(const int id)
 	{
 		this->id = id;
@@ -250,7 +249,7 @@ public:
 	}
 	Patient(const Patient& p) : Person(p.id, p.name, p.gender, p.dob_day, p.dob_month, p.dob_year, p.address)
 	{
-		clog << "CPY CTR CALLED" << endl;
+		//clog << "CPY CTR CALLED" << endl;
 		this->illness = p.illness;
 		this->admission_date = p.admission_date;
 
@@ -718,13 +717,10 @@ public:
 			string name, address, manager;
 			cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because it was skipping the fist input
 			cout << "Enter hospital name > ";
-			//cin >> name;
 			getline(cin, name);
 			cout << "Enter hospital address > ";
-			//cin >> address;
 			getline(cin, address);
 			cout << "Enter hospital manager > ";
-			//cin >> manager;
 			getline(cin, manager);
 
 			infoFile << name << endl << address << endl << manager << endl;
@@ -809,10 +805,9 @@ public:
 	// read data for a personnel from keyboard
 	Personnel read(Personnel p)
 	{
-		clog << "personnel read called" << endl;
+		//clog << "personnel read called" << endl;
 		// im going to increment the id by 1 each time a new personnel is added
 		//then i need to use the name to search for the id in the vector
-		//cout << "Enter personnel id: ";
 		int id = 0;
 		for (int i = 0; i < personnelVector.size(); i++)
 		{
@@ -831,14 +826,11 @@ public:
 			}
 		}
 		p.id = id;
-		//cout << "ID " << p.id << endl;
 		cout << "Enter personnel name: ";
 		cin.ignore(1, '\n');
 		getline(cin, p.name);
-		//cout << p.name << endl;
 		cout << "Enter personnel gender (M/F): ";
 		cin >> p.gender;
-		//cout << p.gender << endl;
 		cout << "Enter personnel date of birth (DDMMYYYY)" << endl;
 		cout << "Day (DD): ";
 		cin >> p.dob_day;
@@ -849,13 +841,10 @@ public:
 		cout << "Enter personnel address: ";
 		cin.ignore(1, '\n');
 		getline(cin, p.address);
-		//cout << p.address << endl;
 		cout << "Enter personnel post: ";
 		cin >> p.staff_post;
-		//cout << p.illness << endl;
 		cout << "Enter personnel expertise: ";
 		cin >> p.staff_expertise;
-		//cout << p.admission_date << endl;
 
 		add(p);
 		return p;
@@ -869,7 +858,6 @@ public:
 		clog << "patient read called" << endl;
 		// im going to increment the id by 1 each time a new patient is added
 		//then i need to use the name to search for the id in the vector
-		//cout << "Enter patient id: ";
 		int id = 0;
 		for (int i = 0; i < patientVector.size(); i++)
 		{
@@ -888,14 +876,11 @@ public:
 			}
 		}
 		p.id = id;
-		//cout << "ID " << p.id << endl;
 		cout << "Enter patient name: ";
 		cin.ignore(1, '\n');
 		getline(cin, p.name);
-		//cout << p.name << endl;
 		cout << "Enter patient gender (M/F): ";
 		cin >> p.gender;
-		//cout << p.gender << endl;
 		cout << "Enter patient date of birth (DDMMYYYY)" << endl;
 		cout << "Day (DD): ";
 		cin >> p.dob_day;
@@ -906,13 +891,10 @@ public:
 		cout << "Enter patient address: ";
 		cin.ignore(1, '\n');
 		getline(cin, p.address);
-		//cout << p.address << endl;
 		cout << "Enter patient illness: ";
 		cin >> p.illness;
-		//cout << p.illness << endl;
 		cout << "Enter patient admission date (DDMMYYYY): ";
 		cin >> p.admission_date;
-		//cout << p.admission_date << endl;
 
 		add(p);
 		return p;
@@ -1075,12 +1057,6 @@ public:
 		save(patientVector); // this is called elsewherew in program too
 		save(personnelVector); // this is called elsewherew in program too
 
-		//test for loop to see whats in the vetor
-		//for (int i = 0; i < patientVector.size(); i++)
-		//{
-		//	cout << "patientVector" << i << " - ";
-		//	cout <<patientVector[i].name << endl;
-		//}
 		exit(x);
 	}
 };
