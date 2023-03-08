@@ -128,6 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="hospital_assignment.cpp" />
+    <ClCompile Include="Hospital_Class.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Patient.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Personnel.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
