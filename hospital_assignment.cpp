@@ -2,14 +2,19 @@
 // test 
 
 //This program is hospital management system using object-oriented programming.
-#include<iostream>
+#pragma once
+//#ifdef _WIN32
+//#include <Windows.h>
+//#else
+//#include <unistd.h>
+//#endif
+#define WIN32_LEAN_AND_MEAN      // Exclude rarely-used stuff from Windows headers
+
+#include <windows.h>
+
 #include<fstream>
 #include <limits>
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
+#include<iostream>
 #include <string>
 #include <stdio.h>
 #include <conio.h>

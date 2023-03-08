@@ -1,4 +1,5 @@
-//#include "Person.cpp"
+#pragma once
+#include "Person.cpp"
 #include <iostream>
 
 using namespace std;

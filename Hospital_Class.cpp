@@ -1,10 +1,11 @@
+#include "Person.cpp"
 #include "Patient.cpp"
 #include "Personnel.cpp"
+#include "Menu.cpp"
 #include <iostream>
 #include <vector>
 #include <synchapi.h>
 #include <fstream>
-#include "Menu.cpp"
 #include <conio.h>
 
 using namespace std;
