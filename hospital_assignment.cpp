@@ -573,6 +573,7 @@ public:
 	{
 		string name;
 		cout << "Enter name of patient you wish to search for > ";
+		cin.ignore(1, '\n');
 		getline(cin, name);
 		int element_to_search;
 		for (int i = 0; i < list.size(); i++)
@@ -597,6 +598,7 @@ public:
 	{
 		string name;
 		cout << "Enter name of personnel you wish to search for > ";
+		cin.ignore(1, '\n');
 		getline(cin, name);
 		int element_to_search;
 		for (int i = 0; i < list.size(); i++)
