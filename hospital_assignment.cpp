@@ -429,7 +429,7 @@ public:
 		getline(cin, patientVector[element_to_update].address);
 		cout << patientVector[element_to_update].address << endl;
 		cout << "Enter patient illness: ";
-		cin >> patientVector[element_to_update].illness;
+		getline(cin, patientVector[element_to_update].illness);
 		cout << patientVector[element_to_update].illness << endl;
 		cout << "Enter patient admission date (DDMMYYYY): ";
 		getline(cin, patientVector[element_to_update].admission_date);
@@ -828,7 +828,7 @@ public:
 		cin.ignore(1, '\n');
 		getline(cin, p.address);
 		cout << "Enter personnel post: ";
-		cin >> p.staff_post;
+		getline(cin, p.staff_post);
 		cout << "Enter personnel expertise: ";
 		cin >> p.staff_expertise;
 
@@ -873,7 +873,7 @@ public:
 		cin.ignore(1, '\n');
 		getline(cin, p.address);
 		cout << "Enter patient illness: ";
-		cin >> p.illness;
+		getline(cin, p.illness);
 		cout << "Enter patient admission date (DDMMYYYY): ";
 		cin >> p.admission_date;
 
