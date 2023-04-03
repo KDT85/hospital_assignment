@@ -239,27 +239,24 @@ public:
 		illness = "some illness";
 		admission_date = "some date";
 	}
+
 	Patient(int id, string name, char gender, int dob_day, int dob_month, int dob_year, string address,
 		string illness, string	admission_date)
 		: Person(id, name, gender, dob_day, dob_month, dob_year, address)
 	{
 		this->illness = illness;
 		this->admission_date = admission_date;
-
 	}
+
 	Patient(const Patient& p) : Person(p.id, p.name, p.gender, p.dob_day, p.dob_month, p.dob_year, p.address)
 	{
 		//clog << "CPY CTR CALLED" << endl;
 		this->illness = p.illness;
 		this->admission_date = p.admission_date;
-
-		print();
-
 	}
 
 	//print out all informaion of a given patient
 	void print()
-
 	{
 		cout << "Patient ID: " << id << endl;
 		cout << "Patient Name: " << name << endl;
@@ -273,8 +270,9 @@ public:
 		cout << "------------------------------" << endl;
 	}
 };
-// use inheritance to make Personel class based on Person class
 
+
+// use inheritance to make Personel class based on Person class
 class Personnel :public Person
 {
 public:
@@ -323,8 +321,8 @@ public:
 	{
 		patientVector.push_back(p);
 		cout << "Patient added to list" << p.id << endl;
-
 		Sleep(900);
+		save(patientVector);
 	}
 
 	//adds Personnel to personnelVector
@@ -332,6 +330,8 @@ public:
 	{
 		personnelVector.push_back(p2);
 		cout << "Personnel added to list" << p2.id << endl;
+		Sleep(900);
+		save(personnelVector);
 	}
 
 	// saves personnel list into file
@@ -361,10 +361,10 @@ public:
 		}
 		printPersonnel.close();
 	}
+
 	// saves patient list into file
 	void save(vector < Patient> list)
 	{
-
 		cout << "Saving Patient List" << endl;
 		ofstream printPatient("Patient.txt");
 		if (!printPatient)
@@ -388,8 +388,8 @@ public:
 			printPatient << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << illness << endl << admission_date << endl;
 		}
 		printPatient.close();
-
 	}
+
 	// update Patient list
 	void update(vector <Patient> list)
 	{
@@ -435,12 +435,9 @@ public:
 		getline(cin, patientVector[element_to_update].admission_date);
 		cout << patientVector[element_to_update].admission_date << endl;
 
-
-
 		cout << patientVector[element_to_update].name << " has been updated" << endl;
 
 		save(patientVector);
-
 	}
 
 
@@ -488,34 +485,36 @@ public:
 		getline(cin, personnelVector[element_to_update].staff_expertise);
 		cout << personnelVector[element_to_update].staff_expertise << endl;
 
-
-
 		cout << personnelVector[element_to_update].name << " has been updated" << endl;
 
 		save(personnelVector);
 
 	}
+
 	// display all data of patient list
 	void display(vector< Patient> patientVector)
 	{
-
-		//clog << patientVector.size() << endl;
-
+		if (patientVector.size() == 0)
+		{
+			cout << "No patients in the database" << endl;
+		}
 		for (int i = 0; i < patientVector.size(); i++)
 		{
 			patientVector[i].print();
 		}
-
-
 	}
+
 	// display all data of personnel list
 	void display(vector< Personnel> list)
 	{
+		if (personnelVector.size() == 0)
+		{
+			cout << "No personnel in the database" << endl;
+		}
 		for (int i = 0; i < personnelVector.size(); i++)
 		{
 			personnelVector[i].print();
 		}
-
 	}
 
 	// read an id and delete its information from both memory and database of patients
@@ -541,8 +540,8 @@ public:
 
 
 	}
-	// read an id and delete its information from both memory and database of personnel
 
+	// read an id and delete its information from both memory and database of personnel
 	void remove(vector <Personnel> list)
 	{
 		int id;
@@ -568,7 +567,6 @@ public:
 
 	// trying to implement a search function that will search for a patient by name and 
 	//return the patient id 
-
 	void search(vector <Patient> list)
 	{
 		string name;
@@ -747,7 +745,11 @@ public:
 		ifstream infoFile;
 		infoFile.open("HospitalInfo.txt");
 		string line;
-
+		if (!infoFile)
+		{
+			cout << "Error opening file" << endl;
+			//exit(1);
+		}
 		while (!infoFile.eof())
 		{
 			if (!(getline(infoFile, name, '\n'))) break;
@@ -807,23 +809,18 @@ public:
 	// read data for a personnel from keyboard
 	Personnel read(Personnel p)
 	{
-		//clog << "personnel read called" << endl;
-		// im going to increment the id by 1 each time a new personnel is added
+		//increment the id by 1 each time a new personnel is added
 		//then i need to use the name to search for the id in the vector
 		int id = 0;
 		for (int i = 0; i < personnelVector.size(); i++)
 		{
-			cout << "ID " << personnelVector[i].id << endl;
-			cout << i << endl;
 			if (personnelVector[i].id != i)
 			{
-				//cout << "if id = i" << endl;
 				id = i;
 				break;
 			}
 			else
 			{
-				//cout << "else id = i + 1" << endl;
 				id = i + 1;
 			}
 		}
@@ -857,14 +854,11 @@ public:
 
 	Patient read(Patient p)
 	{
-		clog << "patient read called" << endl;
 		// im going to increment the id by 1 each time a new patient is added
 		//then i need to use the name to search for the id in the vector
 		int id = 0;
 		for (int i = 0; i < patientVector.size(); i++)
 		{
-			cout << "ID " << patientVector[i].id << endl;
-			cout << i << endl;
 			if (patientVector[i].id != i)
 			{
 				id = i;
@@ -872,7 +866,6 @@ public:
 			}
 			else
 			{
-				//cout << "else id = i + 1" << endl;
 				id = i + 1;
 			}
 		}
@@ -950,6 +943,7 @@ public:
 				break;
 			case 2:
 				search(personnelVector);
+				_getch();
 				break;
 			case 3:
 				update(personnelVector);
@@ -995,6 +989,7 @@ public:
 
 			case 2:
 				search(patientVector);
+				_getch();
 				break;
 
 			case 3:
