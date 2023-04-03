@@ -621,17 +621,17 @@ public:
 	{
 		string password;
 		string passwordverify;
-		cout << "Create a password: ";
+		cout << "Create password: ";
 		cin >> password;
-		cout << "Verify password:";
+		cout << "Verify password: ";
 		cin >> passwordverify;
 		if (password == passwordverify)
 		{
+			cout << "Password has been set" << endl;
 			for (int i = 0; i < password.length(); i++)
 			{
 				password[i] = password[i] + 100;
 			}
-			//cout << password << endl;
 			ofstream myoutputfile;
 			myoutputfile.open("admin.txt");
 			myoutputfile << password;
@@ -644,7 +644,7 @@ public:
 		}
 	}
 
-	string get_password()
+	string get_password(string passwordguess)
 	{
 		string line;
 		ifstream myfile("admin.txt");
@@ -652,15 +652,11 @@ public:
 		{
 			while (getline(myfile, line))
 			{
-				//cout << line << '\n';
 				for (int i = 0; i < line.length(); i++)
 				{
 					line[i] = line[i] - 100;
-					//cout << line[i];
 				}
 			}
-
-			//cout << "line: " << line << endl;
 			myfile.close();
 		}
 
@@ -669,9 +665,7 @@ public:
 			cout << "Unable to open file";
 		}
 
-		cout << "Enter password: ";
-		string passwordguess;
-		cin >> passwordguess;
+
 		if (passwordguess == line)
 		{
 			cout << "Correct password" << endl;
@@ -687,22 +681,19 @@ public:
 	void ourinfoset()
 	{
 		//check if password file exists, if not force user to create one 
-
 		ifstream admin;
 		admin.open("admin.txt");
 		if (!admin)
 		{
 			cout << "You need to create a password" << endl;
-			//cout << "Default password is 'admin'" << endl;
 			set_password();
 		}
 		admin.close();
 
-
 		string input = " ";
-		cout << "Enter password > ";
+		cout << "Enter password to log in : ";
 		cin >> input;
-		string password = get_password();
+		string password = get_password(input);
 
 		if (password == input)
 		{
@@ -727,17 +718,13 @@ public:
 			cout << "name = " << name << " - address = " << address << " - manager = " << manager << endl;
 
 			infoFile.close();
-
 		}
 		else
 		{
 			cout << "Incorrect password" << endl;
 		}
-
-
-
-
 	}
+
 	// displays information of the hospital
 	void displayInfo()
 	{
@@ -747,7 +734,7 @@ public:
 		string line;
 		if (!infoFile)
 		{
-			cout << "Error opening file" << endl;
+			cout << "Not Set" << endl;
 			//exit(1);
 		}
 		while (!infoFile.eof())
