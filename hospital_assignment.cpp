@@ -357,7 +357,7 @@ public:
 			string staff_expertise = list.at(i).staff_expertise;
 
 			// there must be a way to this in a for loop
-			printPersonnel << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << staff_post << endl << staff_expertise << endl;
+			printPersonnel << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << staff_post << endl << staff_expertise;
 		}
 		printPersonnel.close();
 	}
@@ -385,7 +385,7 @@ public:
 			string admission_date = list.at(i).admission_date;
 
 			// there must be a way to this in a for loop
-			printPatient << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << illness << endl << admission_date << endl;
+			printPatient << id << endl << name << endl << gender << endl << dob_day << endl << dob_month << endl << dob_year << endl << address << endl << illness << endl << admission_date;
 		}
 		printPatient.close();
 	}
@@ -409,6 +409,7 @@ public:
 		}
 
 		//i would like to ask which attribute to update and then update only that attribute
+		cin.ignore(100, '\n');
 		cout << "Enter patient name: ";
 		getline(cin, patientVector[element_to_update].name);
 		cout << patientVector[element_to_update].name << endl;
@@ -426,6 +427,7 @@ public:
 		cin >> patientVector[element_to_update].dob_year;
 		cout << patientVector[element_to_update].dob_year << endl;
 		cout << "Enter patient address: ";
+		cin.ignore(100, '\n');
 		getline(cin, patientVector[element_to_update].address);
 		cout << patientVector[element_to_update].address << endl;
 		cout << "Enter patient illness: ";
@@ -459,6 +461,7 @@ public:
 		}
 
 		//i would like to ask which attribute to update and then update only that attribute
+		cin.ignore(100, '\n');
 		cout << "Enter personnel name: ";
 		getline(cin, personnelVector[element_to_update].name);
 		cout << personnelVector[element_to_update].name << endl;
@@ -476,6 +479,7 @@ public:
 		cin >> personnelVector[element_to_update].dob_year;
 		cout << personnelVector[element_to_update].dob_year << endl;
 		cout << "Enter personnel address: ";
+		cin.ignore(100, '\n');
 		getline(cin, personnelVector[element_to_update].address);
 		cout << personnelVector[element_to_update].address << endl;
 		cout << "Enter personnel post: ";
@@ -706,7 +710,7 @@ public:
 			}
 
 			string name, address, manager;
-			cin.ignore(1, '\n'); // for some reason this is needed to clear the buffer because it was skipping the fist input
+			cin.ignore(100, '\n'); // for some reason this is needed to clear the buffer because it was skipping the fist input
 			cout << "Enter hospital name > ";
 			getline(cin, name);
 			cout << "Enter hospital address > ";
@@ -1034,7 +1038,7 @@ public:
 	}
 	void clearScreen()
 	{
-		system("CLS");
+		//system("CLS");
 	};
 	void shutdown(int x)
 	{
@@ -1052,15 +1056,3 @@ int main()
 	hospital.initialize();
 	hospital.main_menu();
 }
-
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
